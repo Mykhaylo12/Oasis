@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="8.19">
+<file name="C:\Users\user\Desktop\Since_java8\internetshop\src\main\java\mate\academy\internetshop\Main.java">
+</file>
+<file name="C:\Users\user\Desktop\Since_java8\internetshop\src\main\java\mate\academy\internetshop\model\IdGenerator.java">
+</file>
+<file name="C:\Users\user\Desktop\Since_java8\internetshop\src\main\java\mate\academy\internetshop\model\Item.java">
+</file>
+<file name="C:\Users\user\Desktop\Since_java8\internetshop\src\main\java\mate\academy\internetshop\service\dao\BucketServiceImpl.java">
+</file>
+</checkstyle>
