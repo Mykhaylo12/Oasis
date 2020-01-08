@@ -1,7 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="95009f76-62d6-4b2a-bd8e-065fe9496685" name="Default Changelist" comment="" />
+    <list default="true" id="95009f76-62d6-4b2a-bd8e-065fe9496685" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internetshop.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/BucketDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/ItemDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/OrderDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/Storage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/UserDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/impl/BucketDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/impl/ItemDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/impl/OrderDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/dao/impl/UserDaoImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/factory/Factory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/lib/AnnotatedClassMap.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/lib/Dao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/lib/Inject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/lib/Injector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/lib/Service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/model/Bucket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/model/IdGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/model/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/model/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/BucketService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/OrderService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/dao/BucketServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/dao/ItemServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/dao/OrderServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/mate/academy/internetshop/service/dao/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/checkstyle-cachefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/checkstyle-checker.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/checkstyle-result.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/internetshop.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/BucketDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/ItemDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/OrderDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/Storage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/UserDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/impl/BucketDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/impl/ItemDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/impl/OrderDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/dao/impl/UserDaoImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/factory/Factory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/lib/AnnotatedClassMap.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/lib/Dao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/lib/Inject.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/lib/Injector.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/lib/Service.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/model/Bucket.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/model/IdGenerator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/model/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/model/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/model/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/BucketService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/OrderService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/dao/BucketServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/dao/ItemServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/dao/OrderServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/mate/academy/internetshop/service/dao/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/internet-shop-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,5 +158,16 @@
       <updated>1577957206736</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
