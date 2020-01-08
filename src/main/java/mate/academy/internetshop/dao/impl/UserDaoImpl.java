@@ -1,6 +1,7 @@
 package mate.academy.internetshop.dao.impl;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
@@ -12,18 +13,17 @@ import mate.academy.internetshop.model.User;
 public class UserDaoImpl implements UserDao {
     @Override
     public User create(User user) {
-        User temp = user;
-        temp.setUserId(IdGenerator.userIdGenerator());
-        Storage.users.add(temp);
-        return null;
+        user.setUserId(IdGenerator.userIdGenerator());
+        Storage.users.add(user);
+        return user;
     }
 
     @Override
-    public User get(Long userId) {
-        return Storage.users.stream()
+    public Optional<User> get(Long userId) {
+        return Optional.ofNullable(Storage.users.stream()
                 .filter(x -> x.getUserId().equals(userId))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("This user doesn't exist"));
+                .orElseThrow(() -> new NoSuchElementException("This user doesn't exist")));
     }
 
     @Override
@@ -37,12 +37,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void deleteById(Long userId) {
+    public boolean deleteById(Long userId) {
         User temp = Storage.users.stream()
                 .filter(x -> x.getUserId().equals(userId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("This user doesn't exist"));
-        Storage.users.remove(temp);
+        return Storage.users.remove(temp);
     }
 
     @Override

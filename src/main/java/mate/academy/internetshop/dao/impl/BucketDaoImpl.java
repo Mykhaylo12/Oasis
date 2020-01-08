@@ -1,6 +1,7 @@
 package mate.academy.internetshop.dao.impl;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
 import mate.academy.internetshop.dao.Storage;
@@ -12,19 +13,18 @@ import mate.academy.internetshop.model.IdGenerator;
 public class BucketDaoImpl implements BucketDao {
     @Override
     public Bucket create(Bucket bucket) {
-        Bucket temp = bucket;
-        temp.setBucketId(IdGenerator.bucketIdGenerator());
-        Storage.buckets.add(temp);
-        return temp;
+        bucket.setBucketId(IdGenerator.bucketIdGenerator());
+        Storage.buckets.add(bucket);
+        return bucket;
     }
 
     @Override
-    public Bucket get(Long bucketId) {
-        return Storage.buckets.stream()
+    public Optional<Bucket> get(Long bucketId) {
+        return Optional.ofNullable(Storage.buckets.stream()
                 .filter(x -> x.getBucketId().equals(bucketId))
                 .findFirst()
                 .orElseThrow(() ->
-                        new NoSuchElementException("Can not find bucket with id " + bucketId));
+                        new NoSuchElementException("Can not find bucket with id " + bucketId)));
     }
 
     @Override
@@ -43,12 +43,12 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public void deleteById(Long bucketId) {
+    public boolean deleteById(Long bucketId) {
         Bucket temp = Storage.buckets.stream()
                 .filter(x -> x.getBucketId().equals(bucketId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Bucket with id "
                         + bucketId + " doesn't exist"));
-        Storage.buckets.remove(temp);
+        return Storage.buckets.remove(temp);
     }
 }

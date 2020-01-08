@@ -1,6 +1,7 @@
 package mate.academy.internetshop.service.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
 import mate.academy.internetshop.dao.ItemDao;
@@ -24,7 +25,8 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Bucket get(Long idBucket) {
-        return bucketDao.get(idBucket);
+        Optional<Bucket> bucket = bucketDao.get(idBucket);
+        return bucket.get();
     }
 
     @Override
@@ -39,14 +41,14 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void addItem(Bucket bucket, Item item) {
-        Bucket temp = bucketDao.get(bucket.getBucketId());
+        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
         temp.getItems().add(item);
         bucketDao.update(temp);
     }
 
     @Override
     public void deleteItem(Bucket bucket, Item item) {
-        Bucket temp = bucketDao.get(bucket.getBucketId());
+        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
         List<Item> itemOfBucket = temp.getItems();
         itemOfBucket.remove(item);
         bucketDao.update(temp);
@@ -54,13 +56,13 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void clear(Bucket bucket) {
-        Bucket temp = bucketDao.get(bucket.getBucketId());
+        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
         temp.getItems().clear();
         bucketDao.update(temp);
     }
 
     @Override
     public List<Item> getAllItems(Bucket bucket) {
-        return bucketDao.get(bucket.getBucketId()).getItems();
+        return bucketDao.get(bucket.getBucketId()).get().getItems();
     }
 }

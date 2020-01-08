@@ -2,6 +2,7 @@ package mate.academy.internetshop.dao.impl;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.dao.Storage;
@@ -14,19 +15,18 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public Order create(Order order) {
-        Order temp = order;
-        temp.setOrderId(IdGenerator.orderIdGenerator());
-        Storage.orders.add(temp);
+        order.setOrderId(IdGenerator.orderIdGenerator());
+        Storage.orders.add(order);
         return order;
     }
 
     @Override
-    public Order get(Long orderId) {
-        return Storage.orders.stream()
+    public Optional<Order> get(Long orderId) {
+        return Optional.ofNullable(Storage.orders.stream()
                 .filter(x -> x.getOrderId().equals(orderId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("Order with id "
-                        + orderId + " doesn't exist"));
+                        + orderId + " doesn't exist")));
     }
 
     @Override
@@ -40,12 +40,12 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void deleteById(Long orderId) {
+    public boolean deleteById(Long orderId) {
         Order temp = Storage.orders.stream()
                 .filter(x -> x.getOrderId().equals(orderId))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("This order doesn't exist"));
-        Storage.orders.remove(temp);
+        return Storage.orders.remove(temp);
     }
 
     @Override
