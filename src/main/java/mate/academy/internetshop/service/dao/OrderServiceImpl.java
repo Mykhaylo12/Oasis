@@ -1,7 +1,7 @@
 package mate.academy.internetshop.service.dao;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.lib.Inject;
@@ -49,12 +49,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getUserOrders(User user) {
-        List<Order> orderList = new ArrayList<>();
-        for (Order order : orderDao.getAll()) {
-            if (order.getUserId().equals(user.getUserId())) {
-                orderList.add(order);
-            }
-        }
-        return orderList;
+        return orderDao.getAll().stream()
+                .filter(x -> x.getUserId().equals(user.getUserId()))
+                .collect(Collectors.toList());
     }
 }

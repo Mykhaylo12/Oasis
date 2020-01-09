@@ -2,9 +2,9 @@ package mate.academy.internetshop.model;
 
 public class IdGenerator {
     private static Long bucketId = 0L;
-    private static Long ItemId = Long.parseLong("0");
-    private static Long OrderId = Long.parseLong("0");
-    private static Long UserId = Long.parseLong("0");
+    private static Long ItemId = 0L;
+    private static Long OrderId = 0L;
+    private static Long UserId = 0L;
 
     public static Long bucketIdGenerator() {
         return ++bucketId;

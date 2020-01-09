@@ -13,5 +13,5 @@ public interface ItemDao {
 
     boolean deleteById(Long id);
 
-    void delete(Item item);
+    boolean delete(Item item);
 }

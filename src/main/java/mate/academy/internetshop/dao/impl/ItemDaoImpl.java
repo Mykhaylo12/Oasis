@@ -48,11 +48,11 @@ public class ItemDaoImpl implements ItemDao {
     }
 
     @Override
-    public void delete(Item item) {
+    public boolean delete(Item item) {
         Item temp = Storage.items.stream()
                 .filter(x -> x.equals(item))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException("This item doesn't exist"));
-        Storage.items.remove(temp);
+        return Storage.items.remove(temp);
     }
 }

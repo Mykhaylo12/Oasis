@@ -13,5 +13,5 @@ public interface UserDao {
 
     boolean deleteById(Long userId);
 
-    void delete(User user);
+    boolean delete(User user);
 }
