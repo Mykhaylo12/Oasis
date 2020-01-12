@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
 import mate.academy.internetshop.dao.ItemDao;
+import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.Item;
+import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.BucketService;
 
 @Service
@@ -65,4 +67,19 @@ public class BucketServiceImpl implements BucketService {
     public List<Item> getAllItems(Bucket bucket) {
         return bucketDao.get(bucket.getBucketId()).get().getItems();
     }
+
+    @Override
+    public List<Bucket> getAll() {
+        return bucketDao.getAll();
+    }
+
+    @Override
+    public Bucket getByUser(User user) {
+        return  Storage.buckets
+                .stream()
+                .filter(b -> b.getUserId().equals(user.getUserId()))
+                .findFirst()
+                .orElse(bucketDao.create(new Bucket(user)));
+    }
+
 }

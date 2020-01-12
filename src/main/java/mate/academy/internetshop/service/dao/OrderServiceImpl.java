@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import mate.academy.internetshop.dao.OrderDao;
+import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Item;
@@ -52,5 +53,10 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getAll().stream()
                 .filter(x -> x.getUserId().equals(user.getUserId()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Order> getAll() {
+        return Storage.orders;
     }
 }

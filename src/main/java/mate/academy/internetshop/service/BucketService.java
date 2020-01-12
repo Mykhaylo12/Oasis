@@ -4,6 +4,7 @@ import java.util.List;
 
 import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.Item;
+import mate.academy.internetshop.model.User;
 
 public interface BucketService {
     Bucket create(Bucket bucket);
@@ -21,4 +22,8 @@ public interface BucketService {
     void clear(Bucket bucket);
 
     List<Item> getAllItems(Bucket bucket);
+
+    List<Bucket> getAll();
+
+    Bucket getByUser(User user);
 }
