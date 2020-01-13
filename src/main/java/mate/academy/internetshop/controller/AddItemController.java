@@ -23,10 +23,10 @@ public class AddItemController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        Item newitem = new Item();
-        newitem.setName(req.getParameter("name"));
-        newitem.setPrice(Double.parseDouble(req.getParameter("price")));
-        itemService.create(newitem);
+        Item newItem = new Item();
+        newItem.setName(req.getParameter("name"));
+        newItem.setPrice(Double.parseDouble(req.getParameter("price")));
+        itemService.create(newItem);
         resp.sendRedirect(req.getContextPath() + "/allItems");
     }
 }

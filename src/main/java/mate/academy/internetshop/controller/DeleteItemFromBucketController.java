@@ -17,15 +17,14 @@ public class DeleteItemFromBucketController extends HttpServlet {
     private static BucketService bucketService;
     @Inject
     private static ItemService itemService;
+    public static final Long USER_ID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String bucketId = req.getParameter("bucket_id");
         String itemId = req.getParameter("itemId");
-        Bucket bucket = bucketService.get(Long.parseLong(bucketId));
-        Item item = itemService.get(Long.parseLong(itemId));
-        bucketService.deleteItem(bucket, item);
+        bucketService.deleteItem(bucketService.getByUserId(USER_ID),
+                itemService.get(Long.parseLong(itemId)));
         resp.sendRedirect(req.getContextPath() + "/bucketController");
     }
 }

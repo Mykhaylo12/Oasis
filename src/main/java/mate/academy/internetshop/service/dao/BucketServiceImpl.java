@@ -105,4 +105,17 @@ public class BucketServiceImpl implements BucketService {
                 .findFirst()
                 .orElse(bucketDao.create(new Bucket(user)));
     }
+
+    @Override
+    public Bucket getByUserId(Long userId) {
+        User user = Storage.users.stream()
+                .filter(x -> x.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow();
+        return Storage.buckets
+                .stream()
+                .filter(b -> b.getUserId().equals(userId))
+                .findFirst()
+                .orElse(bucketDao.create(new Bucket(user)));
+    }
 }

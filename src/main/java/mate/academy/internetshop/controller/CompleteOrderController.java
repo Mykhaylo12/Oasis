@@ -22,12 +22,14 @@ public class CompleteOrderController extends HttpServlet {
     @Inject
     private static UserService userService;
 
+    public static final Long USER_ID=1L;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         String bucketId = req.getParameter("bucket_id");
         Bucket bucket = bucketService.get(Long.parseLong(bucketId));
-        User user = userService.get(bucket.getUserId());
+        User user = userService.get(USER_ID);
         orderService.completeOrder(bucket.getItems(), user);
         resp.sendRedirect(req.getContextPath() + "/orders?user_id=" + bucket.getUserId());
     }

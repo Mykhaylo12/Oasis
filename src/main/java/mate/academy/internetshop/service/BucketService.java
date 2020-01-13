@@ -26,4 +26,6 @@ public interface BucketService {
     List<Bucket> getAll();
 
     Bucket getByUser(User user);
+
+    Bucket getByUserId(Long userId);
 }
