@@ -17,12 +17,12 @@ public class GetUserOrdersController extends HttpServlet {
     @Inject
     private static UserService userService;
 
-    private static Long userId = 1L;
+    private static final Long USER_ID = 1L;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User user = userService.get(userId);
+        User user = userService.get(USER_ID);
         req.setAttribute("orders", orderService.getUserOrders(user));
         req.getRequestDispatcher("/WEB-INF/views/orders.jsp").forward(req, resp);
     }

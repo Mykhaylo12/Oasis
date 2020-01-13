@@ -8,6 +8,7 @@ import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.service.ItemService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -21,7 +22,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item get(Long id) {
-        return itemDao.get(id).get();
+        if (itemDao.get(id).isPresent()) {
+            return itemDao.get(id).get();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override

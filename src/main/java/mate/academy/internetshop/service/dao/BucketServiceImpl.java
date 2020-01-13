@@ -1,6 +1,7 @@
 package mate.academy.internetshop.service.dao;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
@@ -28,7 +29,11 @@ public class BucketServiceImpl implements BucketService {
     @Override
     public Bucket get(Long idBucket) {
         Optional<Bucket> bucket = bucketDao.get(idBucket);
-        return bucket.get();
+        if (bucket.isPresent()) {
+            return bucket.get();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -43,14 +48,24 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void addItem(Bucket bucket, Item item) {
-        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
+        Bucket temp;
+        if (bucketDao.get(bucket.getBucketId()).isPresent()) {
+            temp = bucketDao.get(bucket.getBucketId()).get();
+        } else {
+            throw new NoSuchElementException();
+        }
         temp.getItems().add(item);
         bucketDao.update(temp);
     }
 
     @Override
     public void deleteItem(Bucket bucket, Item item) {
-        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
+        Bucket temp;
+        if (bucketDao.get(bucket.getBucketId()).isPresent()) {
+            temp = bucketDao.get(bucket.getBucketId()).get();
+        } else {
+            throw new NoSuchElementException();
+        }
         List<Item> itemOfBucket = temp.getItems();
         itemOfBucket.remove(item);
         bucketDao.update(temp);
@@ -58,14 +73,23 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void clear(Bucket bucket) {
-        Bucket temp = bucketDao.get(bucket.getBucketId()).get();
+        Bucket temp;
+        if (bucketDao.get(bucket.getBucketId()).isPresent()) {
+            temp = bucketDao.get(bucket.getBucketId()).get();
+        } else {
+            throw new NoSuchElementException();
+        }
         temp.getItems().clear();
         bucketDao.update(temp);
     }
 
     @Override
     public List<Item> getAllItems(Bucket bucket) {
-        return bucketDao.get(bucket.getBucketId()).get().getItems();
+        if (bucketDao.get(bucket.getBucketId()).isPresent()) {
+            return bucketDao.get(bucket.getBucketId()).get().getItems();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -75,11 +99,10 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Bucket getByUser(User user) {
-        return  Storage.buckets
+        return Storage.buckets
                 .stream()
                 .filter(b -> b.getUserId().equals(user.getUserId()))
                 .findFirst()
                 .orElse(bucketDao.create(new Bucket(user)));
     }
-
 }

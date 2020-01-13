@@ -8,6 +8,7 @@ import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,7 +22,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long idUser) {
-        return userDao.get(idUser).get();
+        if (userDao.get(idUser).isPresent()) {
+            return userDao.get(idUser).get();
+        } else {
+            throw new NoSuchElementException();
+        }
     }
 
     @Override
@@ -40,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll(){
+    public List<User> getAll() {
         return Storage.users;
     }
 }

@@ -44,5 +44,3 @@
     <a href="/internet_shop_war_exploded/bucketController">Show bucket</a>
     <a href="${pageContext.request.contextPath}/orders">Show order</a>
 </div>
-
-
