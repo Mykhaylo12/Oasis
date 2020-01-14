@@ -15,7 +15,7 @@ public class Order {
     }
 
     private Double countTotalPrice(List<Item> items) {
-        return items.stream().map(Item::getPrice).reduce(0.0, (acc, x) -> acc + x);
+        return items.stream().map(Item::getPrice).reduce(0.0, Double::sum);
     }
 
     public Long getOrderId() {
@@ -40,6 +40,14 @@ public class Order {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     @Override

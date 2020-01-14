@@ -1,6 +1,9 @@
 package mate.academy.internetshop.service;
 
+import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.model.Item;
+
+import java.util.List;
 
 public interface ItemService {
     Item create(Item item);
@@ -12,4 +15,6 @@ public interface ItemService {
     void deleteById(Long id);
 
     void delete(Item item);
+
+    List<Item> getAll();
 }

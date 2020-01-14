@@ -4,10 +4,14 @@ public class User {
     private Long userId;
     private String name;
     private String password;
+    private String email;
 
-    public User(String name, String password) {
-        this.name = name;
-        this.password = password;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Long getUserId() {
@@ -36,7 +40,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "userId=" + userId + ", name='" + name + '\''
-                + ", password='" + password + '\'' + '}';
+        return "User{" + "userId=" + userId + ", name='" + name + '}';
     }
 }

@@ -20,4 +20,6 @@ public interface OrderService {
     Order completeOrder(List<Item> items, User user);
 
     List<Order> getUserOrders(User user);
+
+    List<Order> getAll();
 }
