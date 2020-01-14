@@ -22,11 +22,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item get(Long id) {
-        if (itemDao.get(id).isPresent()) {
-            return itemDao.get(id).get();
-        } else {
-            throw new NoSuchElementException();
-        }
+        return itemDao.get(id).orElseThrow(NoSuchElementException::new);
     }
 
     @Override

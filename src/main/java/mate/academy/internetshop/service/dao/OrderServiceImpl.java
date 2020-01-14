@@ -25,11 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order get(Long orderId) {
-        if (orderDao.get(orderId).isPresent()) {
-            return orderDao.get(orderId).get();
-        } else {
-            throw new NoSuchElementException();
-        }
+        return orderDao.get(orderId).orElseThrow(NoSuchElementException::new);
     }
 
     @Override

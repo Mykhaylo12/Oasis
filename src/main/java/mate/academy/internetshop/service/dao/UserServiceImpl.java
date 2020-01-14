@@ -22,11 +22,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Long idUser) {
-        if (userDao.get(idUser).isPresent()) {
-            return userDao.get(idUser).get();
-        } else {
-            throw new NoSuchElementException();
-        }
+        return userDao.get(idUser).orElseThrow(NoSuchElementException::new);
     }
 
     @Override

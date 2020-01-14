@@ -9,6 +9,7 @@ import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.IdGenerator;
+import mate.academy.internetshop.model.User;
 
 @Dao
 public class BucketDaoImpl implements BucketDao {
@@ -26,6 +27,13 @@ public class BucketDaoImpl implements BucketDao {
                 .findFirst()
                 .orElseThrow(() ->
                         new NoSuchElementException("Can not find bucket with id " + bucketId)));
+    }
+
+    @Override
+    public Optional<Bucket> getByUser(User user) {
+        return Storage.buckets.stream()
+                .filter(b -> b.getUserId().equals(user.getUserId()))
+                .findFirst();
     }
 
     @Override
@@ -51,6 +59,14 @@ public class BucketDaoImpl implements BucketDao {
                 .orElseThrow(() -> new NoSuchElementException("Bucket with id "
                         + bucketId + " doesn't exist"));
         return Storage.buckets.remove(temp);
+    }
+
+    @Override
+    public boolean deleteBucketByUser(User user) {
+        Bucket bucket = Storage.buckets.stream()
+                .filter(b -> b.getUserId().equals(user.getUserId()))
+                .findFirst().orElseThrow(NoSuchElementException::new);
+        return Storage.buckets.remove(bucket);
     }
 
     @Override
