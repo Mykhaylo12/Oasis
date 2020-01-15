@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
             User user = userService.login(login, password);
 
             HttpSession session = req.getSession(true);
-            session.setAttribute("user", user);
+            session.setAttribute("userId", user.getUserId());
 
             Cookie cookie = new Cookie("MATE", user.getToken());
             resp.addCookie(cookie);
