@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
 import mate.academy.internetshop.dao.ItemDao;
-import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.Bucket;
@@ -69,7 +68,9 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public List<Item> getAllItems(Bucket bucket) {
-        return bucketDao.get(bucket.getBucketId()).orElseThrow(NoSuchElementException::new).getItems();
+        return bucketDao.get(bucket.getBucketId())
+                .orElseThrow(NoSuchElementException::new)
+                .getItems();
     }
 
     @Override

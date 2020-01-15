@@ -3,9 +3,13 @@ package mate.academy.internetshop.web.filters;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
-import javax.servlet.*;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,7 +32,7 @@ public class AuthenticationFilter implements Filter {
                          FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
-        if(req.getCookies()==null){
+        if (req.getCookies() == null) {
             procesUnAuthentificaded(req, resp);
             return;
         }
@@ -38,7 +42,7 @@ public class AuthenticationFilter implements Filter {
                 if (user.isPresent()) {
                     logger.info("User " + user.get().getLogin() + " was authenticatificated");
                     filterChain.doFilter(servletRequest, servletResponse);
-                return;
+                    return;
                 }
             }
         }
@@ -46,7 +50,8 @@ public class AuthenticationFilter implements Filter {
         procesUnAuthentificaded(req, resp);
     }
 
-    private void procesUnAuthentificaded(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void procesUnAuthentificaded(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
         resp.sendRedirect(req.getContextPath() + "/login");
     }
 

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddItemToBucketController extends HttpServlet {
-    private static final Long USER_ID = 1L;
     @Inject
     private static BucketService bucketService;
     @Inject

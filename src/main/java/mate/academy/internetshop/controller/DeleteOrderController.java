@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mate.academy.internetshop.lib.Inject;
-import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
 
 public class DeleteOrderController extends HttpServlet {
