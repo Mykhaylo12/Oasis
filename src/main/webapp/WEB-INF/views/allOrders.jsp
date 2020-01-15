@@ -46,7 +46,7 @@
                 </table>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteOrder?order_id=${order.id}">DELETE</a>
+                <a href="${pageContext.request.contextPath}/servlet/deleteOrder?order_id=${order.id}">DELETE</a>
             </td>
         </tr>
     </c:forEach>

@@ -2,6 +2,7 @@ package mate.academy.internetshop.service.dao;
 
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
+import mate.academy.internetshop.exeption.AuthenticationException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.User;
@@ -9,6 +10,8 @@ import mate.academy.internetshop.service.UserService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,7 +20,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) {
+        user.setToken(getToken());
         return userDao.create(user);
+    }
+
+    private String getToken() {
+        return UUID.randomUUID().toString();
     }
 
     @Override
@@ -43,5 +51,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAll() {
         return Storage.users;
+    }
+
+    @Override
+    public User login(String login, String password) throws AuthenticationException {
+        return userDao.login(login, password);
+    }
+
+    @Override
+    public Optional<User> getByToken(String token) {
+        return userDao.getByToken(token);
     }
 }

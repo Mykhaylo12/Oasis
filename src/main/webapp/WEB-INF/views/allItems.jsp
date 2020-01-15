@@ -27,16 +27,16 @@ Items:
                 <c:out value="${item.price}"/>
             </td>
             <td>
-                <a href="/internet_shop_war_exploded/deleteItem?item_id=${item.itemId}">DELETE</a>
+                <a href="/internet_shop_war_exploded/servlet/deleteItem?item_id=${item.itemId}">DELETE</a>
             </td>
             <td>
-                <a href="/internet_shop_war_exploded/addToBucket?item_id=${item.itemId}">Add to bucket</a>
+                <a href="/internet_shop_war_exploded/servlet/addToBucket?item_id=${item.itemId}">Add to bucket</a>
             </td>
         </tr>
 
     </c:forEach>
     <td>
-        <a href="/internet_shop_war_exploded/additem">Add new item</a>
+        <a href="/internet_shop_war_exploded/servlet/additem">Add new item</a>
     </td>
 </table>
 <a href="${pageContext.request.contextPath}/mainMenu">Main Menu</a>
