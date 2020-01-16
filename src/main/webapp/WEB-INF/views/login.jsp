@@ -9,7 +9,7 @@
 <style  type="text/css"><%@include file="/WEB-INF/styles/main.css"%></style>
 <style  type="text/css"><%@include file="/WEB-INF/styles/util.css"%></style>
 <html>
-<head>mvn
+<head>
     <title>Login page</title>
 </head>
 <body>
