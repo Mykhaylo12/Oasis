@@ -18,6 +18,9 @@ Let's create new user
         <p>Please fill in this form to create an account.</p>
         <hr>
 
+        <label for="Login"><b>Login</b></label>
+        <input type="text" placeholder="Enter your login(username)" name="login" required>
+
         <label for="Name"><b>Name</b></label>
         <input type="text" placeholder="Enter your name" name="name" required>
 

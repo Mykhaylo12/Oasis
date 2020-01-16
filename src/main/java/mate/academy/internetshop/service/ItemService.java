@@ -1,6 +1,5 @@
 package mate.academy.internetshop.service;
 
-import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.model.Item;
 
 import java.util.List;

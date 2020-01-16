@@ -5,9 +5,11 @@ import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationController extends HttpServlet {
@@ -24,10 +26,17 @@ public class RegistrationController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         User newUser = new User();
-        newUser.setName(req.getParameter("name"));
+        newUser.setLogin(req.getParameter("login"));
         newUser.setPassword(req.getParameter("psw"));
         newUser.setEmail(req.getParameter("email"));
-        userService.create(newUser);
-        resp.sendRedirect(req.getContextPath() + "/allUsers");
+        newUser.setName(req.getParameter("name"));
+        User user = userService.create(newUser);
+
+        HttpSession session = req.getSession(true);
+        session.setAttribute("userId", user.getUserId());
+
+        Cookie cookie = new Cookie("MATE", user.getToken());
+        resp.addCookie(cookie);
+        resp.sendRedirect(req.getContextPath() + "/mainMenu");
     }
 }

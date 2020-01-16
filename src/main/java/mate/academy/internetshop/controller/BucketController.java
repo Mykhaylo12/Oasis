@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class BucketController extends HttpServlet {
-    private static final Long USER_ID = 1L;
     @Inject
     private static BucketService bucketService;
     @Inject
@@ -22,7 +21,8 @@ public class BucketController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        User user = userService.get(USER_ID);
+        String userId = String.valueOf(req.getSession(true).getAttribute("userId"));
+        User user = userService.get(Long.valueOf(userId));
         Bucket bucket = bucketService.getByUser(user);
         req.setAttribute("bucket", bucket);
         req.getRequestDispatcher("/WEB-INF/views/bucketController.jsp").forward(req, resp);

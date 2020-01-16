@@ -2,6 +2,7 @@ package mate.academy.internetshop.dao;
 
 import java.util.Optional;
 
+import mate.academy.internetshop.exeption.AuthenticationException;
 import mate.academy.internetshop.model.User;
 
 public interface UserDao {
@@ -14,4 +15,8 @@ public interface UserDao {
     boolean deleteById(Long userId);
 
     boolean delete(User user);
+
+    Optional<User> findByLogin(String login) throws AuthenticationException;
+
+    Optional<User> getByToken(String token);
 }

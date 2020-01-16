@@ -20,19 +20,19 @@ Users:
                 <c:out value="${user.userId}"/>
             </td>
             <td>
-                <c:out value="${user.name}"/>
+                <c:out value="${user.login}"/>
             </td>
             <td>
                 <c:out value="${user.email}"/>
             </td>
             <td>
-                <a href="/internet_shop_war_exploded/deleteUser?user_id=${user.userId}">DELETE</a>
+                <a href="/internet_shop_war_exploded/servlet/deleteUser?user_id=${user.userId}">DELETE</a>
             </td>
         </tr>
 
     </c:forEach>
     <td>
-        <a href="/internet_shop_war_exploded/registration">Add new user</a>
+        <a href="/internet_shop_war_exploded/servlet/registration">Add new user</a>
     </td>
 </table>
 <a href="/internet_shop_war_exploded/mainMenu">Main Menu</a>

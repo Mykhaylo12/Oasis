@@ -20,6 +20,6 @@ public class DeleteUserOrderController extends HttpServlet {
         String orderId = req.getParameter("order_id");
         Order order = orderService.get(Long.valueOf(orderId));
         orderService.deleteById(Long.valueOf(orderId));
-        resp.sendRedirect(req.getContextPath() + "/orders?user_id=" + order.getUserId());
+        resp.sendRedirect(req.getContextPath() + "/servlet/orders?user_id=" + order.getUserId());
     }
 }

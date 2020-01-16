@@ -38,7 +38,7 @@
                 </table>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteUserOrder?order_id=${order.orderId}">DELETE</a>
+                <a href="${pageContext.request.contextPath}/servlet/deleteUserOrder?order_id=${order.orderId}">DELETE</a>
             </td>
         </tr>
     </c:forEach>

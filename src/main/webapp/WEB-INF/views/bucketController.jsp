@@ -26,15 +26,15 @@ Bucket:
                 <c:out value="${item.price}"/>
             </td>
             <td>
-                <a href="${pageContext.request.contextPath}/deleteItemFromBucket?bucket_id=${bucket.bucketId}&itemId=${item.itemId}">DELETE</a>
+                <a href="${pageContext.request.contextPath}/servlet/deleteItemFromBucket?bucket_id=${bucket.bucketId}&itemId=${item.itemId}">DELETE</a>
             </td>
         </tr>
 
     </c:forEach>
 
 </table>
-<a href="${pageContext.request.contextPath}/completeOrder?bucket_id=${bucket.bucketId}">Checkout</a>
-<a href="${pageContext.request.contextPath}/allItems">Add more items</a>
+<a href="${pageContext.request.contextPath}/servlet/completeOrder?bucket_id=${bucket.bucketId}">Checkout</a>
+<a href="${pageContext.request.contextPath}/servlet/allItems">Add more items</a>
 <a href="${pageContext.request.contextPath}/mainMenu">Main Menu</a>
 </body>
 </html>

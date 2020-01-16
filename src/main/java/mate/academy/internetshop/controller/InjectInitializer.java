@@ -1,18 +1,22 @@
 package mate.academy.internetshop.controller;
 
 import mate.academy.internetshop.lib.Injector;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 public class InjectInitializer implements ServletContextListener {
+    private static final Logger LOGGER = Logger.getLogger(InjectInitializer.class);
+
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         try {
-            System.out.println("Dependency injection started...");
+            LOGGER.info("Dependency injection started");
             Injector.injectDependency();
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LOGGER.error("Problem with initialization of dependencies", e);
+            throw new RuntimeException();
         }
     }
 

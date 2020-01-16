@@ -38,9 +38,9 @@
 
 <div class="vertical-menu">
     <a href="/internet_shop_war_exploded/registration">Registration</a>
-    <a href="/internet_shop_war_exploded/additem">Add new item</a>
-    <a href="/internet_shop_war_exploded/allUsers">Show all users</a>
-    <a href="/internet_shop_war_exploded/allItems">Show all items</a>
-    <a href="/internet_shop_war_exploded/bucketController">Show bucket</a>
-    <a href="${pageContext.request.contextPath}/orders">Show order</a>
+    <a href="/internet_shop_war_exploded/servlet/additem">Add new item</a>
+    <a href="/internet_shop_war_exploded/servlet/allUsers">Show all users</a>
+    <a href="/internet_shop_war_exploded/servlet/allItems">Show all items</a>
+    <a href="/internet_shop_war_exploded/servlet/bucketController">Show bucket</a>
+    <a href="${pageContext.request.contextPath}/servlet/orders">Show order</a>
 </div>
