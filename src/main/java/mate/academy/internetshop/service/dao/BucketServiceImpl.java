@@ -68,9 +68,7 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public List<Item> getAllItems(Bucket bucket) {
-        return bucketDao.get(bucket.getBucketId())
-                .orElseThrow(NoSuchElementException::new)
-                .getItems();
+        return get(bucket.getBucketId()).getItems();
     }
 
     @Override

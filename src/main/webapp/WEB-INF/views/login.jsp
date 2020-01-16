@@ -6,8 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style  type="text/css"><%@include file="/WEB-INF/styles/main.css"%></style>
+<style  type="text/css"><%@include file="/WEB-INF/styles/util.css"%></style>
 <html>
-<head>
+<head>mvn
     <title>Login page</title>
 </head>
 <body>
