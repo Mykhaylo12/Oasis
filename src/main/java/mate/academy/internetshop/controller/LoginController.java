@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controller;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +38,7 @@ public class LoginController extends HttpServlet {
             Cookie cookie = new Cookie("MATE", user.getToken());
             resp.addCookie(cookie);
             resp.sendRedirect(req.getContextPath() + "/mainMenu");
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException | NoSuchElementException e) {
             req.setAttribute("errorMsg", "Incorrect login or password");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         }

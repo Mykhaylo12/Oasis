@@ -36,7 +36,7 @@ Items:
 
     </c:forEach>
     <td>
-        <a href="/internet_shop_war_exploded/servlet/additem">Add new item</a>
+        <a href="/internet_shop_war_exploded/servlet/addItem">Add new item</a>
     </td>
 </table>
 <a href="${pageContext.request.contextPath}/mainMenu">Main Menu</a>

@@ -11,7 +11,7 @@
     <title>Add item</title>
 </head>
 <body>
-<form action="/internet_shop_war_exploded/servlet/additem" method="post">
+<form action="/internet_shop_war_exploded/servlet/addItem" method="post">
     <div class="container">
         <h1>Please add item</h1>
         <p>Please fill in this form to add item.</p>

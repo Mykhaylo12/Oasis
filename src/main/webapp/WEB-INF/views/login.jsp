@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<style  type="text/css"><%@include file="/WEB-INF/styles/main.css"%></style>
-<style  type="text/css"><%@include file="/WEB-INF/styles/util.css"%></style>
+<%--<style  type="text/css"><%@include file="/WEB-INF/styles/main.css"%></style>--%>
+<%--<style  type="text/css"><%@include file="/WEB-INF/styles/util.css"%></style>--%>
 <html>
 <head>
     <title>Login page</title>
@@ -35,6 +35,7 @@ Hello login page
 
     <div class="container signin">
         <p>Don't have an account?<a href="/internet_shop_war_exploded/registration">Sign in</a></p>
+        <p>For testing only: <a href="/internet_shop_war_exploded/inject">add User(login: user, password:1) and Admin(login: admin, password:1)</a></p>
     </div>
 </form>
 </body>
