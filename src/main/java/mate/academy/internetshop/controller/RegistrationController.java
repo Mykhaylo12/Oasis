@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controller;
 
 import mate.academy.internetshop.lib.Inject;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
 
@@ -30,6 +31,7 @@ public class RegistrationController extends HttpServlet {
         newUser.setPassword(req.getParameter("psw"));
         newUser.setEmail(req.getParameter("email"));
         newUser.setName(req.getParameter("name"));
+        newUser.addRole(Role.of("USER"));
         User user = userService.create(newUser);
 
         HttpSession session = req.getSession(true);
