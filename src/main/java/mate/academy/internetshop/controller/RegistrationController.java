@@ -42,4 +42,3 @@ public class RegistrationController extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/mainMenu");
     }
 }
-
