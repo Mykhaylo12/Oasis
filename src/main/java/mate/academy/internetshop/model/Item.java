@@ -7,6 +7,9 @@ public class Item {
     private String name;
     private Double price;
 
+    public Item() {
+    }
+
     public Long getItemId() {
         return itemId;
     }

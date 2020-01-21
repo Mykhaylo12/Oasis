@@ -1,6 +1,5 @@
 package mate.academy.internetshop.service.dao;
 
-import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exeption.AuthenticationException;
 import mate.academy.internetshop.lib.Inject;
@@ -50,12 +49,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAll() {
-        return Storage.users;
+        return userDao.getAll();
     }
 
     @Override
     public User login(String login, String password) throws AuthenticationException {
-       User user = userDao.findByLogin(login).orElseThrow(NoSuchElementException::new);
+        User user = userDao.findByLogin(login).orElseThrow(NoSuchElementException::new);
         if (!user.getPassword().equals(password)) {
             throw new AuthenticationException("Wrong password or login");
         }

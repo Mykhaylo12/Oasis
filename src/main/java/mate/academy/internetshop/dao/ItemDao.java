@@ -1,5 +1,6 @@
 package mate.academy.internetshop.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.model.Item;
@@ -14,4 +15,6 @@ public interface ItemDao {
     boolean deleteById(Long id);
 
     boolean delete(Item item);
+
+    List<Item> getAll();
 }
