@@ -91,7 +91,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
                 DB_NAME, item.getItemId());
         try (Statement stmt = connection.createStatement()) {
             int res = stmt.executeUpdate(query);
-            LOGGER.info(res + " row(s) was effected");
+            LOGGER.info(res + " row(s) was(ware) effected");
             return true;
         } catch (SQLException e) {
             LOGGER.warn("Can't find item with id = " + item.getItemId());
