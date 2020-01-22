@@ -1,13 +1,17 @@
 package mate.academy.internetshop.factory;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import mate.academy.internetshop.dao.BucketDao;
 import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.dao.OrderDao;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.dao.impl.BucketDaoImpl;
-import mate.academy.internetshop.dao.impl.ItemDaoImpl;
 import mate.academy.internetshop.dao.impl.OrderDaoImpl;
 import mate.academy.internetshop.dao.impl.UserDaoImpl;
+import mate.academy.internetshop.dao.jdbc.ItemDaoJdbcImpl;
 import mate.academy.internetshop.service.BucketService;
 import mate.academy.internetshop.service.ItemService;
 import mate.academy.internetshop.service.OrderService;
@@ -16,8 +20,23 @@ import mate.academy.internetshop.service.dao.BucketServiceImpl;
 import mate.academy.internetshop.service.dao.ItemServiceImpl;
 import mate.academy.internetshop.service.dao.OrderServiceImpl;
 import mate.academy.internetshop.service.dao.UserServiceImpl;
+import org.apache.log4j.Logger;
 
 public class Factory {
+    private static Logger LOGGER = Logger.getLogger(Factory.class);
+    private static Connection connection;
+
+    static {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/test?"
+                    + "user=root&password=Kramar1327&serverTimezone=UTC");
+        } catch (SQLException | ClassNotFoundException e) {
+            LOGGER.error("Can't connect to our DB", e);
+        }
+    }
+
     private static UserDao userDaoInstance;
     private static BucketDao bucketDaoInstance;
     private static ItemDao itemDaoInstance;
@@ -44,7 +63,7 @@ public class Factory {
 
     public static ItemDao getItemDao() {
         if (itemDaoInstance == null) {
-            itemDaoInstance = new ItemDaoImpl();
+            itemDaoInstance = new ItemDaoJdbcImpl(connection);
         }
         return itemDaoInstance;
     }

@@ -1,5 +1,6 @@
 package mate.academy.internetshop.dao.impl;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -55,4 +56,10 @@ public class ItemDaoImpl implements ItemDao {
                 .orElseThrow(() -> new NoSuchElementException("This item doesn't exist"));
         return Storage.items.remove(temp);
     }
+
+    @Override
+    public List<Item> getAll() {
+        return Storage.items;
+    }
+
 }
