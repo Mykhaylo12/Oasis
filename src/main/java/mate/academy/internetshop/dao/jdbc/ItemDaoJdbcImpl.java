@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.ItemDao;
@@ -26,13 +27,14 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
     public Item create(Item item) {
         String name = item.getName();
         Double price = item.getPrice();
-        String query = String.format("INSERT INTO %s.items (name, price) VALUES('%s', %.0f)",
+        String query = String.format(Locale.ROOT, "INSERT INTO %s.items (name, price) "
+                        + "VALUES('%s', %.2f)",
                 DB_NAME, name, price);
         try (Statement stmt = connection.createStatement()) {
             int rs = stmt.executeUpdate(query);
             LOGGER.info(rs + " row(s) was effected.");
         } catch (SQLException e) {
-            LOGGER.error("Can't connect to DB create(Item item) in ItemDaoJdbcImpl", e);
+            throw new RuntimeException();
         }
         return item;
     }
@@ -53,20 +55,20 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
                 return Optional.of(item);
             }
         } catch (SQLException e) {
-            LOGGER.warn("Can't find item with id = " + id);
+            throw new RuntimeException();
         }
         return Optional.empty();
     }
 
     @Override
     public Item update(Item item) {
-        String query = String.format("update %s.items set name='%s' ,price=%.0f "
+        String query = String.format(Locale.ROOT, "update %s.items set name='%s' ,price=%.2f "
                 + "where item_id=%s;", DB_NAME, item.getName(), item.getPrice(), item.getItemId());
         try (Statement stmt = connection.createStatement()) {
             int res = stmt.executeUpdate(query);
             LOGGER.info(res + " row(s) was effected");
         } catch (SQLException e) {
-            LOGGER.warn("Can't find item with id = " + item.getItemId());
+            throw new RuntimeException();
         }
         return item;
     }
@@ -80,8 +82,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             LOGGER.info(res + " row(s) was effected");
             return true;
         } catch (SQLException e) {
-            LOGGER.warn("Can't find item with id = " + id);
-            return false;
+            throw new RuntimeException();
         }
     }
 
@@ -94,8 +95,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             LOGGER.info(res + " row(s) was(ware) effected");
             return true;
         } catch (SQLException e) {
-            LOGGER.warn("Can't find item with id = " + item.getItemId());
-            return false;
+            throw new RuntimeException();
         }
     }
 
@@ -117,8 +117,8 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             }
             return allItems;
         } catch (SQLException e) {
-            LOGGER.error("Can't connect to DB getAll() in ItemDaoJdbcImpl", e);
+            throw new RuntimeException();
         }
-        return allItems;
     }
 }
+

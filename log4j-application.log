@@ -513,3 +513,7 @@ java.sql.SQLException: Column count doesn't match value count at row 1
 2020-01-21 21:46:44 WARN  ItemDaoJdbcImpl:69 - Can't find item with id = 1
 2020-01-21 21:48:12 INFO  InjectInitializer:15 - Dependency injection started
 2020-01-21 21:49:01 INFO  ItemDaoJdbcImpl:67 - 1 row(s) was effected
+2020-01-22 11:44:52 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-22 11:45:33 INFO  ItemDaoJdbcImpl:68 - 1 row(s) was effected
+2020-01-22 11:46:02 INFO  ItemDaoJdbcImpl:34 - 1 row(s) was effected.
+2020-01-22 11:46:06 INFO  ItemDaoJdbcImpl:81 - 1 row(s) was effected
