@@ -13,6 +13,15 @@ public class Bucket {
         userId = user.getUserId();
     }
 
+    public Bucket() {
+    }
+
+    public Bucket(Long userId, Long bucketId, List<Item> items) {
+        this.userId = userId;
+        this.bucketId = bucketId;
+        this.items = items;
+    }
+
     public Long getUserId() {
         return userId;
     }

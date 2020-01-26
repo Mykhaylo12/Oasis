@@ -14,6 +14,15 @@ public class Order {
         this.items = items;
     }
 
+    public Order(Long orderId, Long userId, List<Item> items) {
+        this.orderId = orderId;
+        this.items = items;
+        this.userId = userId;
+    }
+
+    public Order() {
+    }
+
     private Double countTotalPrice(List<Item> items) {
         return items.stream().map(Item::getPrice).reduce(0.0, Double::sum);
     }

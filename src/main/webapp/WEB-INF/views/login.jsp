@@ -19,8 +19,6 @@
         </form>
     <div class="fadeIn second" >
         <p>Don't have an account?<a href="/internet_shop_war_exploded/registration">Sign up</a></p>
-        <p>For testing only: <a href="/internet_shop_war_exploded/inject">
-            add User(login: user, password:1) and Admin(login: admin, password:1)</a><p>
     </div>
 </div>
 </div>

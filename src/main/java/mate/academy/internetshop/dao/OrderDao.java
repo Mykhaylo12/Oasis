@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.model.User;
 
 public interface OrderDao {
     Order create(Order order);
@@ -17,4 +18,6 @@ public interface OrderDao {
     boolean delete(Order order);
 
     List<Order> getAll();
+
+    List<Order> getUserOrders(User user);
 }

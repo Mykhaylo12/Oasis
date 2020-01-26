@@ -517,3 +517,123 @@ java.sql.SQLException: Column count doesn't match value count at row 1
 2020-01-22 11:45:33 INFO  ItemDaoJdbcImpl:68 - 1 row(s) was effected
 2020-01-22 11:46:02 INFO  ItemDaoJdbcImpl:34 - 1 row(s) was effected.
 2020-01-22 11:46:06 INFO  ItemDaoJdbcImpl:81 - 1 row(s) was effected
+2020-01-24 18:01:23 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-24 18:01:30 INFO  ItemDaoJdbcImpl:69 - 1 row(s) was effected
+2020-01-25 09:52:35 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 10:27:50 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 11:04:29 INFO  ItemDaoJdbcImpl:69 - 1 row(s) was effected
+2020-01-25 11:04:55 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 11:19:11 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 11:19:23 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:19:23 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:19:24 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:19:25 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:19:26 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:41:05 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 11:41:08 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:42:03 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 11:42:11 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 11:43:29 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 11:47:56 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 13:44:31 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 13:44:57 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 13:46:09 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 13:50:43 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 13:50:59 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 14:06:35 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 14:06:55 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 14:07:21 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 14:08:33 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 14:28:48 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 14:33:37 INFO  ItemDaoJdbcImpl:35 - 1 row(s) was effected.
+2020-01-25 14:34:25 INFO  ItemDaoJdbcImpl:82 - 1 row(s) was effected
+2020-01-25 14:45:07 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 14:50:25 INFO  ItemDaoJdbcImpl:98 - 1 row(s) was effected
+2020-01-25 14:55:07 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 14:56:37 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 15:15:02 INFO  ItemDaoJdbcImpl:86 - 1 row(s) was effected
+2020-01-25 15:21:08 INFO  ItemDaoJdbcImpl:98 - 1 row(s) was effected
+2020-01-25 15:21:53 INFO  ItemDaoJdbcImpl:98 - 1 row(s) was effected
+2020-01-25 18:17:21 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 18:17:29 INFO  ItemDaoJdbcImpl:71 - 1 row(s) was effected
+2020-01-25 18:21:21 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 18:21:26 INFO  ItemDaoJdbcImpl:71 - 1 row(s) was effected
+2020-01-25 20:49:04 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 20:54:26 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 20:59:38 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:01:05 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:22:50 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:26:55 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:34:48 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:50:57 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-25 21:57:15 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 07:33:49 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 07:46:44 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 09:04:20 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 09:32:17 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 09:33:34 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 11:52:19 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 11:52:41 INFO  ItemDaoJdbcImpl:84 - 1 row(s) was effected
+2020-01-26 12:50:53 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 12:53:35 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 13:29:21 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 13:36:00 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 14:06:33 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 14:13:27 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 14:27:54 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 19:22:09 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 19:24:22 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 20:01:27 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 20:16:31 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:16:31 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:19:55 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:19:55 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:22:29 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:22:29 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:29:27 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:29:27 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:32:19 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:32:19 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:35:45 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:35:45 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:37:08 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:37:08 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:38:47 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:38:47 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:40:04 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:40:04 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:41:08 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:41:08 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:42:16 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:42:16 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:46:53 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:46:53 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:51:42 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:51:42 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:53:33 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:53:33 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:54:49 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 20:54:49 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:04:54 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:04:54 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:08:46 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 21:09:16 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:09:16 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:11:44 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:11:44 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:12:27 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:12:27 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:13:54 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:13:54 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:14:38 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:14:38 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:31:00 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:31:36 INFO  InjectInitializer:15 - Dependency injection started
+2020-01-26 21:33:01 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:33:01 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:33:44 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:33:44 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:34:33 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:34:33 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:35:12 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected
+2020-01-26 21:35:12 INFO  OrderDaoJdbcImpl:49 - 1 rows were affected

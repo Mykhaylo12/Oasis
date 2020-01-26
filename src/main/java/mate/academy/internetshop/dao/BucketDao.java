@@ -13,7 +13,7 @@ public interface BucketDao {
 
     Optional<Bucket> getByUser(User user);
 
-    Bucket update(Bucket busket);
+    Bucket update(Bucket bucket);
 
     boolean delete(Bucket bucket);
 
@@ -22,5 +22,4 @@ public interface BucketDao {
     boolean deleteBucketByUser(User user);
 
     List<Bucket> getAll();
-
 }

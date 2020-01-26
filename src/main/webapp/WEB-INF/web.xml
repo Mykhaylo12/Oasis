@@ -150,15 +150,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>injectDataController</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.InjectDataController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>injectDataController</servlet-name>
-        <url-pattern>/inject</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>logoutController</servlet-name>
         <servlet-class>mate.academy.internetshop.controller.LogoutController</servlet-class>
     </servlet>

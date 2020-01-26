@@ -1,5 +1,6 @@
 package mate.academy.internetshop.service.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -46,9 +47,15 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void addItem(Bucket bucket, Item item) {
-        Bucket temp = bucketDao.get(bucket.getBucketId()).orElseThrow(NoSuchElementException::new);
-        temp.getItems().add(item);
-        bucketDao.update(temp);
+        List<Item> items = new ArrayList<>();
+        Optional<Bucket> temp = getAll()
+                .stream()
+                .filter(b -> b.getUserId().equals(bucket.getUserId()))
+                .findFirst();
+        Bucket bucketForUpdate = temp.orElseGet(() -> create(new Bucket(bucket.getUserId(),
+                bucket.getUserId(), items)));
+        bucketForUpdate.getItems().add(item);
+        bucketDao.update(bucketForUpdate);
     }
 
     @Override
@@ -83,7 +90,11 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Bucket getByUserId(Long userId) {
-        User user = userService.get(userId);
-        return bucketDao.getByUser(user).orElse(bucketDao.create(new Bucket(user)));
+        List<Item> items = new ArrayList<>();
+        Optional<Bucket> bucket = getAll()
+                .stream()
+                .filter(b -> b.getUserId().equals(userId))
+                .findFirst();
+        return bucket.orElseGet(() -> create(new Bucket(userId, userId, items)));
     }
 }

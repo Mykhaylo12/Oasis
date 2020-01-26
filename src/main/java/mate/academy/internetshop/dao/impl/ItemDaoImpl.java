@@ -61,5 +61,4 @@ public class ItemDaoImpl implements ItemDao {
     public List<Item> getAll() {
         return Storage.items;
     }
-
 }

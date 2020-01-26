@@ -37,13 +37,13 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public Bucket update(Bucket busket) {
+    public Bucket update(Bucket bucket) {
         Bucket temp = Storage.buckets.stream()
-                .filter(x -> x.getBucketId().equals(busket.getBucketId()))
+                .filter(x -> x.getBucketId().equals(bucket.getBucketId()))
                 .findFirst().orElseThrow(() -> new NoSuchElementException("Can not update bucket."
                         + " Bucket doesn't exist"));
-        Storage.buckets.set(Storage.buckets.indexOf(temp), busket);
-        return busket;
+        Storage.buckets.set(Storage.buckets.indexOf(temp), bucket);
+        return bucket;
     }
 
     @Override
