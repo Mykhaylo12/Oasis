@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
-import mate.academy.internetshop.exeption.AuthenticationException;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.IdGenerator;
 import mate.academy.internetshop.model.User;
@@ -53,7 +53,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findByLogin(String login) throws AuthenticationException {
+    public Optional<User> findByLogin(String login) throws DataProcessingException {
         return Storage.users.stream()
                 .filter(u -> u.getLogin().equals(login))
                 .findFirst();

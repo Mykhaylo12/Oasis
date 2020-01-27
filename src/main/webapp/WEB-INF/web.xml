@@ -4,7 +4,6 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-
     <servlet>
         <servlet-name>getAllUsers</servlet-name>
         <servlet-class>mate.academy.internetshop.controller.GetAllUsersController</servlet-class>

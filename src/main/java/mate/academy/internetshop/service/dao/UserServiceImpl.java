@@ -1,7 +1,7 @@
 package mate.academy.internetshop.service.dao;
 
 import mate.academy.internetshop.dao.UserDao;
-import mate.academy.internetshop.exeption.AuthenticationException;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.User;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     private static UserDao userDao;
 
     @Override
-    public User create(User user) {
+    public User create(User user) throws DataProcessingException {
         user.setToken(getToken());
         return userDao.create(user);
     }
@@ -28,41 +28,41 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User get(Long idUser) {
+    public User get(Long idUser) throws DataProcessingException {
         return userDao.get(idUser).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
-    public User update(User user) {
+    public User update(User user) throws DataProcessingException {
         return userDao.update(user);
     }
 
     @Override
-    public void deleteById(Long userId) {
+    public void deleteById(Long userId) throws DataProcessingException {
         userDao.deleteById(userId);
     }
 
     @Override
-    public void delete(User user) {
+    public void delete(User user) throws DataProcessingException {
         userDao.delete(user);
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll() throws DataProcessingException {
         return userDao.getAll();
     }
 
     @Override
-    public User login(String login, String password) throws AuthenticationException {
+    public User login(String login, String password) throws DataProcessingException {
         User user = userDao.findByLogin(login).orElseThrow(NoSuchElementException::new);
         if (!user.getPassword().equals(password)) {
-            throw new AuthenticationException("Wrong password or login");
+            throw new DataProcessingException("Wrong password or login");
         }
         return user;
     }
 
     @Override
-    public Optional<User> getByToken(String token) {
+    public Optional<User> getByToken(String token) throws DataProcessingException {
         return userDao.getByToken(token);
     }
 }

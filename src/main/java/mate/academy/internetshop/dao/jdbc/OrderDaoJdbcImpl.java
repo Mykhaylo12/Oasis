@@ -10,56 +10,53 @@ import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.OrderDao;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
-import org.apache.log4j.Logger;
 
 @Dao
 public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
-    private static Logger LOGGER = Logger.getLogger(OrderDaoJdbcImpl.class);
-
     public OrderDaoJdbcImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Order create(Order order) {
-        Order newOrder = order;
-        String query = "INSERT INTO internet_shop.orders (user_id) VALUES (?);";
+    public Order create(Order order) throws DataProcessingException {
+        String query = "INSERT INTO internet_shop.orders (user_id, total_price) VALUES (?,?);";
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setLong(1, order.getUserId());
+            preparedStatement.setDouble(2, order.getTotalPrice());
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
-                newOrder.setOrderId(rs.getLong(1));
+                order.setOrderId(rs.getLong(1));
             }
-            addItemsToOrderInDB(newOrder, order.getItems());
-            return newOrder;
+            addItemsToOrderInDB(order, order.getItems());
+            return order;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to create Order: " + e);
         }
     }
 
-    private void addItemsToOrderInDB(Order order, List<Item> items) {
+    private void addItemsToOrderInDB(Order order, List<Item> items) throws DataProcessingException {
         String query = "INSERT INTO internet_shop.orders_items_id (order_id, item_id)"
                 + " VALUES (?, ?);";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             for (Item item : items) {
                 statement.setLong(1, order.getOrderId());
                 statement.setLong(2, item.getItemId());
-                int rows = statement.executeUpdate();
-                LOGGER.info(rows + " rows were affected");
+                statement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to add Items To Order In DB: " + e);
         }
     }
 
     @Override
-    public Optional<Order> get(Long orderId) {
+    public Optional<Order> get(Long orderId) throws DataProcessingException {
         String query = "SELECT * FROM internet_shop.orders WHERE order_id = ?;";
         Order order = new Order();
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -72,11 +69,11 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             order.setItems(addItemsToOrder(orderId));
             return Optional.of(order);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to get Order: " + e);
         }
     }
 
-    private List<Item> addItemsToOrder(Long orderId) {
+    private List<Item> addItemsToOrder(Long orderId) throws DataProcessingException {
         List<Item> items = new ArrayList<>();
         String query = "SELECT internet_shop.items.item_id ,internet_shop.items.name,"
                 + " internet_shop.items.price FROM internet_shop.items INNER JOIN"
@@ -95,12 +92,12 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             }
             return items;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to add Items To Order: " + e);
         }
     }
 
     @Override
-    public Order update(Order order) {
+    public Order update(Order order) throws DataProcessingException {
         List<Item> items = order.getItems();
         String query = "DELETE FROM internet_shop.orders_items_id WHERE order_id=?;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -109,42 +106,34 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             addItemsToOrderInDB(order, items);
             return order;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to update orders: " + e);
         }
     }
 
     @Override
-    public boolean deleteById(Long orderId) {
-        String query = "DELETE FROM internet_shop.orders_items_id WHERE order_id=?;";
+    public boolean deleteById(Long orderId) throws DataProcessingException {
+        String query = "DELETE FROM internet_shop.orders WHERE order_id=?;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, orderId);
-            if (statement.executeUpdate() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to orders by orderId: " + e);
         }
     }
 
     @Override
-    public boolean delete(Order order) {
+    public boolean delete(Order order) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.orders_items_id WHERE order_id=?;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setLong(1, order.getOrderId());
-            if (statement.executeUpdate() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to delete order: " + e);
         }
     }
 
     @Override
-    public List<Order> getAll() {
+    public List<Order> getAll() throws DataProcessingException {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT * FROM internet_shop.orders;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -158,12 +147,12 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             }
             return orders;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to  get list of orders: " + e);
         }
     }
 
     @Override
-    public List<Order> getUserOrders(User user) {
+    public List<Order> getUserOrders(User user) throws DataProcessingException {
         List<Order> orders = new ArrayList<>();
         String query = "SELECT * FROM internet_shop.orders WHERE user_id=?;";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -178,7 +167,7 @@ public class OrderDaoJdbcImpl extends AbstractDao<Order> implements OrderDao {
             }
             return orders;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to get list of orders by user: " + e);
         }
     }
 }

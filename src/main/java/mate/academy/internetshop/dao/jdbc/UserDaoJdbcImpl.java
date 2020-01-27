@@ -13,21 +13,19 @@ import java.util.Optional;
 import java.util.Set;
 
 import mate.academy.internetshop.dao.UserDao;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
-import org.apache.log4j.Logger;
 
 @Dao
 public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
-    private static Logger LOGGER = Logger.getLogger(UserDaoJdbcImpl.class);
-
     public UserDaoJdbcImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user) throws DataProcessingException {
         String query = "INSERT INTO internet_shop.users(login, password, email, name,token)"
                 + " VALUES(?, ?, ?, ?, ?);";
         try (PreparedStatement preparedStatement
@@ -37,53 +35,49 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getName());
             preparedStatement.setString(5, user.getToken());
-            int rows = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
                 user.setUserId(rs.getLong(1));
             }
             updateUserRoles(user);
-            LOGGER.info(rows + " rows were affected");
+            return user;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to update User Roles: " + e);
         }
-        return user;
     }
 
-    private void updateUserRoles(User user) {
+    private void updateUserRoles(User user) throws DataProcessingException {
         deleteAllUserRoles(user);
-        String query = "INSERT INTO internet_shop.roles (role_id, role_name, user_id)"
-                + " VALUES (?, ?, ?);";
+        String query = "INSERT INTO internet_shop.users_roles (user_id, role_id) values (?, ?);";
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             for (Role role : user.getRoles()) {
                 if (role.equals(Role.of("ADMIN"))) {
-                    preparedStatement.setLong(1, 1L);
-                    preparedStatement.setString(2, "ADMIN");
+                    preparedStatement.setLong(2, 1L);
                 } else {
-                    preparedStatement.setLong(1, 2L);
-                    preparedStatement.setString(2, "USER");
+                    preparedStatement.setLong(2, 2L);
                 }
-                preparedStatement.setLong(3, user.getUserId());
+                preparedStatement.setLong(1, user.getUserId());
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to create User: " + e);
         }
     }
 
-    private void deleteAllUserRoles(User user) {
-        String query = "DELETE FROM internet_shop.roles WHERE user_id=?;";
+    private void deleteAllUserRoles(User user) throws DataProcessingException {
+        String query = "DELETE FROM internet_shop.users_roles WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, user.getUserId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete All User Roles: " + e);
         }
     }
 
     @Override
-    public Optional<User> get(Long userId) {
+    public Optional<User> get(Long userId) throws DataProcessingException {
         User user = new User();
         String query = "SELECT * FROM internet_shop.users WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -100,13 +94,17 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get user : " + e);
         }
     }
 
-    private Set<Role> getAllUserRoles(long userId) {
+    private Set<Role> getAllUserRoles(long userId) throws DataProcessingException {
         Set<Role> roles = new HashSet<>();
-        String query = "SELECT * FROM internet_shop.roles WHERE user_id=?;";
+        String query = "SELECT internet_shop.users_roles.user_id,"
+                + " internet_shop.users_roles.role_id, internet_shop.roles.role_name"
+                + " FROM internet_shop.users_roles INNER JOIN internet_shop.roles "
+                + "ON internet_shop.roles.role_id=internet_shop.users_roles.role_id "
+                + "WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -118,12 +116,12 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             }
             return roles;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to all user roles: " + e);
         }
     }
 
     @Override
-    public User update(User user) {
+    public User update(User user) throws DataProcessingException {
         String query = "UPDATE internet_shop.users SET login = ?, password = ?, email= ?,"
                 + " name = ?, token = ? WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -136,42 +134,34 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             preparedStatement.executeUpdate();
             return get(user.getUserId()).orElseThrow(NoSuchElementException::new);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to update user by id: " + e);
         }
     }
 
     @Override
-    public boolean deleteById(Long userId) {
+    public boolean deleteById(Long userId) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.users WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
-            if (preparedStatement.executeUpdate() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete user by id: " + e);
         }
     }
 
     @Override
-    public boolean delete(User user) {
+    public boolean delete(User user) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.users WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, user.getUserId());
-            if (preparedStatement.executeUpdate() > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete user: " + e);
         }
     }
 
     @Override
-    public Optional<User> findByLogin(String login) {
+    public Optional<User> findByLogin(String login) throws DataProcessingException {
         User user = new User();
         String query = "SELECT * FROM internet_shop.users WHERE login=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -183,16 +173,17 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
                 user.setToken(rs.getString("token"));
+                user.setLogin(rs.getString("login"));
             }
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to find users by login: " + e);
         }
     }
 
     @Override
-    public Optional<User> getByToken(String token) {
+    public Optional<User> getByToken(String token) throws DataProcessingException {
         User user = new User();
         String query = "SELECT * FROM internet_shop.users WHERE token=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -208,12 +199,12 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get users by token: " + e);
         }
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAll() throws DataProcessingException {
         List<User> users = new ArrayList<>();
         String query = "SELECT * FROM internet_shop.users;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -231,7 +222,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             }
             return users;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get all users: " + e);
         }
     }
 }

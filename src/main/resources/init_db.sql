@@ -64,19 +64,26 @@ ALTER TABLE `internet_shop`.`orders`
             ON DELETE NO ACTION
             ON UPDATE NO ACTION;
 
-CREATE TABLE `internet_shop`.`roles`
+CREATE TABLE `internet_shop`.`users_roles`
 (
-    `role_id`   INT         NOT NULL AUTO_INCREMENT,
-    `role_name` VARCHAR(45) NOT NULL,
-    `user_id`   INT         NOT NULL,
-    PRIMARY KEY (`role_id`),
-    INDEX `user_id_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `user_id`
+    `id`      INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `role_id` INT NOT NULL,
+    INDEX `ui_idx` (`user_id` ASC) VISIBLE,
+    INDEX `ri_idx` (`role_id` ASC) VISIBLE,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `ui`
         FOREIGN KEY (`user_id`)
             REFERENCES `internet_shop`.`users` (`user_id`)
-            ON DELETE NO ACTION
-            ON UPDATE NO ACTION
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `ri`
+        FOREIGN KEY (`role_id`)
+            REFERENCES `internet_shop`.`roles` (`role_id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
 );
+
 
 CREATE TABLE `internet_shop`.`bukets`
 (

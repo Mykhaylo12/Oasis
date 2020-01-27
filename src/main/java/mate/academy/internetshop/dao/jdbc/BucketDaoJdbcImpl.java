@@ -10,22 +10,20 @@ import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.model.User;
-import org.apache.log4j.Logger;
 
 @Dao
 public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao {
-    private static Logger LOGGER = Logger.getLogger(ItemDaoJdbcImpl.class);
-
     public BucketDaoJdbcImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Bucket create(Bucket bucket) {
+    public Bucket create(Bucket bucket) throws DataProcessingException {
         bucket.setBucketId(bucket.getUserId());
         String query = "INSERT INTO internet_shop.buckets (user_id, item_id) VALUES (?, ?);";
         try (PreparedStatement preparedStatement
@@ -35,15 +33,14 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
                 preparedStatement.setLong(2, item.getItemId());
                 preparedStatement.executeUpdate();
             }
-        } catch (SQLException e) {
-            LOGGER.error("Can`t create bucket", e);
             return bucket;
+        } catch (SQLException e) {
+            throw new DataProcessingException("Failed to  create bucket: " + e);
         }
-        return bucket;
     }
 
     @Override
-    public Optional<Bucket> get(Long basketId) {
+    public Optional<Bucket> get(Long basketId) throws DataProcessingException {
         long userId = basketId;
         String query = "SELECT * FROM internet_shop.buckets INNER JOIN internet_shop.items ON"
                 + " internet_shop.buckets.item_id=internet_shop.items.item_id WHERE user_id=?;";
@@ -53,8 +50,6 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             ResultSet rs = preparedStatement.executeQuery();
             List<Item> items = new ArrayList<>();
             Bucket bucket = new Bucket();
-            bucket.setBucketId(basketId);
-            bucket.setUserId(userId);
             while (rs.next()) {
                 bucket.setUserId(rs.getLong("user_id"));
                 bucket.setBucketId(rs.getLong("user_id"));
@@ -67,12 +62,12 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             bucket.setItems(items);
             return Optional.of(bucket);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get bucket: " + e);
         }
     }
 
     @Override
-    public Optional<Bucket> getByUser(User user) {
+    public Optional<Bucket> getByUser(User user) throws DataProcessingException {
         long userId = user.getUserId();
         String query = "SELECT user_id, items.item_id, name, price FROM internet_shop.buckets"
                 + " INNER JOIN internet_shop.items ON"
@@ -96,12 +91,12 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             bucket.setItems(items);
             return Optional.of(bucket);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get bucket By User: " + e);
         }
     }
 
     @Override
-    public Bucket update(Bucket bucket) {
+    public Bucket update(Bucket bucket) throws DataProcessingException {
         List<Item> items = bucket.getItems();
         deleteOldBucket(bucket.getBucketId());
         String query = "INSERT INTO internet_shop.buckets (user_id, item_id) VALUES (?, ?);";
@@ -112,80 +107,66 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
                 statement.executeUpdate();
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to update bucket: " + e);
         }
         return bucket;
     }
 
-    private void deleteOldBucket(Long bucketId) {
+    private void deleteOldBucket(Long bucketId) throws DataProcessingException {
         long userId = bucketId;
         String query = "DELETE FROM internet_shop.buckets WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete old bucket: " + e);
         }
     }
 
     @Override
-    public boolean delete(Bucket bucket) {
+    public boolean delete(Bucket bucket) throws DataProcessingException {
         long userId = bucket.getUserId();
         String query = "DELETE FROM internet_shop.buckets WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             int rs = preparedStatement.executeUpdate();
-            if (rs > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return rs > 0;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete bucket: " + e);
         }
     }
 
     @Override
-    public boolean deleteById(Long bucketId) {
-        long userId = bucketId;
+    public boolean deleteById(Long bucketId) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.buckets WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, userId);
+            preparedStatement.setLong(1, bucketId);
             int rs = preparedStatement.executeUpdate();
-            if (rs > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return rs > 0;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete bucket By Id: " + e);
         }
     }
 
     @Override
-    public boolean deleteBucketByUser(User user) {
+    public boolean deleteBucketByUser(User user) throws DataProcessingException {
         long userId = user.getUserId();
         String query = "DELETE FROM internet_shop.buckets WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, userId);
             int rs = preparedStatement.executeUpdate();
-            if (rs > 0) {
-                return true;
-            } else {
-                return false;
-            }
+            return rs > 0;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete Bucket By User: " + e);
         }
     }
 
     @Override
-    public List<Bucket> getAll() {
+    public List<Bucket> getAll() throws DataProcessingException {
         List<Bucket> buckets = new ArrayList<>();
         String query = "SELECT DISTINCT user_id FROM internet_shop.buckets;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             ResultSet rs = preparedStatement.executeQuery();
-
             while (rs.next()) {
                 Bucket bucket = new Bucket();
                 List<Item> items = new ArrayList<>();
@@ -197,11 +178,11 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             }
             return buckets;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get All buckets: " + e);
         }
     }
 
-    private List<Item> getAllItemsByUserId(Long userId) {
+    private List<Item> getAllItemsByUserId(Long userId) throws DataProcessingException {
         List<Item> items = new ArrayList<>();
         String query = "SELECT internet_shop.items.item_id, name ,price FROM"
                 + " internet_shop.items INNER JOIN internet_shop.buckets ON"
@@ -220,7 +201,7 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
                 items.add(item);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new DataProcessingException("Failed to get All Items By UserId: " + e);
         }
         return items;
     }

@@ -1,5 +1,7 @@
 package mate.academy.internetshop.model;
 
+import java.util.Objects;
+
 public class Item {
     private Long itemId;
     private String name;
@@ -33,7 +35,27 @@ public class Item {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Item)) {
+            return false;
+        }
+        Item item = (Item) o;
+        return Objects.equals(getItemId(), item.getItemId())
+                && Objects.equals(getName(), item.getName())
+                && Objects.equals(getPrice(), item.getPrice());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemId(), getName(), getPrice());
+    }
+
+    @Override
     public String toString() {
         return "Item{" + "itemId=" + itemId + ", name='" + name + '\'' + ", price=" + price + '}';
+
     }
 }
