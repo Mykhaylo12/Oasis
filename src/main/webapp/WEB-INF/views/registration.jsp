@@ -9,6 +9,7 @@
 </head>
 <div class="wrapper fadeInDown">
     <div id="formContent">
+        <div class="fadeIn second">${errorMsg}</div>
 <form action="/internet_shop_war_exploded/registration" method="post">
         <h3>Registration</h3>
         <p>Please fill in this form to create an account.</p>

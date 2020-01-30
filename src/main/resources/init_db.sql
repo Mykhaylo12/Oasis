@@ -133,3 +133,26 @@ CREATE TABLE `internet_shop`.`orders`
             ON DELETE CASCADE
             ON UPDATE CASCADE
 );
+
+CREATE TABLE `internet_shop`.`buckets_items`
+(
+    `id`        INT NOT NULL AUTO_INCREMENT,
+    `bucket_id` INT NOT NULL,
+    `item_id`   INT NOT NULL,
+    PRIMARY KEY (`id`),
+    INDEX `bibi_idx` (`bucket_id` ASC) VISIBLE,
+    INDEX `biii_idx` (`item_id` ASC) VISIBLE,
+    CONSTRAINT `bibi`
+        FOREIGN KEY (`bucket_id`)
+            REFERENCES `internet_shop`.`buckets` (`bucket_id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE,
+    CONSTRAINT `biii`
+        FOREIGN KEY (`item_id`)
+            REFERENCES `internet_shop`.`items` (`item_id`)
+            ON DELETE CASCADE
+            ON UPDATE CASCADE
+)
+    ENGINE = InnoDB
+    DEFAULT CHARACTER SET = utf8
+    COLLATE = utf8_bin;

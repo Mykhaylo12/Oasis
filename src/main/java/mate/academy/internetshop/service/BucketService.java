@@ -24,8 +24,6 @@ public interface BucketService {
 
     List<Item> getAllItems(Bucket bucket) throws DataProcessingException;
 
-    List<Bucket> getAll() throws DataProcessingException;
-
     Bucket getByUser(User user) throws DataProcessingException;
 
     Bucket getByUserId(Long userId) throws DataProcessingException;

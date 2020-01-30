@@ -1,6 +1,5 @@
 package mate.academy.internetshop.dao;
 
-import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.exeption.DataProcessingException;
@@ -22,5 +21,5 @@ public interface BucketDao {
 
     boolean deleteBucketByUser(User user) throws DataProcessingException;
 
-    List<Bucket> getAll() throws DataProcessingException;
+    Optional<Bucket> getBucketByUserId(Long userId) throws DataProcessingException;
 }

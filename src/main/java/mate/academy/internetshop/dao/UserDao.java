@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import mate.academy.internetshop.exeption.DataProcessingException;
+import mate.academy.internetshop.exeption.LoginExistExeption;
 import mate.academy.internetshop.model.User;
 
 public interface UserDao {
@@ -22,4 +23,8 @@ public interface UserDao {
     Optional<User> getByToken(String token) throws DataProcessingException;
 
     List<User> getAll() throws DataProcessingException;
+
+    void checkUserLoginForRegistration(String login) throws LoginExistExeption;
+
+    void checkUserLoginForLogin(String login) throws LoginExistExeption, DataProcessingException;
 }

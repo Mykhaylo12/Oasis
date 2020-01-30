@@ -19,6 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) throws DataProcessingException {
+        userDao.checkUserLoginForRegistration(user.getLogin());
         user.setToken(getToken());
         return userDao.create(user);
     }
@@ -54,6 +55,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User login(String login, String password) throws DataProcessingException {
+        userDao.checkUserLoginForLogin(login);
         User user = userDao.findByLogin(login).orElseThrow(NoSuchElementException::new);
         if (!user.getPassword().equals(password)) {
             throw new DataProcessingException("Wrong password or login");

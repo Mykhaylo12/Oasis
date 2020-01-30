@@ -14,6 +14,7 @@ import java.util.Set;
 
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exeption.DataProcessingException;
+import mate.academy.internetshop.exeption.LoginExistExeption;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
@@ -44,6 +45,39 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             return user;
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to update User Roles: " + e);
+        }
+    }
+
+    public void checkUserLoginForRegistration(String login) throws LoginExistExeption {
+        String query = "SELECT * FROM internet_shop.users;";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                if (rs.getString("login").equals(login)) {
+                    throw new SQLException();
+                }
+            }
+        } catch (SQLException e) {
+            throw new LoginExistExeption("Failed to update User Roles: " + e);
+        }
+    }
+
+    @Override
+    public void checkUserLoginForLogin(String login) throws DataProcessingException {
+        String query = "SELECT login FROM internet_shop.users;";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            ResultSet rs = preparedStatement.executeQuery();
+            List<String> logins = new ArrayList<>();
+            while (rs.next()) {
+                logins.add(rs.getString("login"));
+            }
+            if (logins.stream().noneMatch(l -> l.equals(login))) {
+                throw new SQLException();
+            }
+        } catch (SQLException e) {
+            throw new LoginExistExeption("Failed to update User Roles: " + e);
         }
     }
 

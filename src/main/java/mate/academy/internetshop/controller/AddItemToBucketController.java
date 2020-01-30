@@ -39,6 +39,6 @@ public class AddItemToBucketController extends HttpServlet {
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }
-        resp.sendRedirect(req.getContextPath() + "/servlet/bucketController");
+        resp.sendRedirect(req.getContextPath() + "/servlet/allItems");
     }
 }

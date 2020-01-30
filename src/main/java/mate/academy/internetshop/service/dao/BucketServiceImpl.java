@@ -48,15 +48,8 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public void addItem(Bucket bucket, Item item) throws DataProcessingException {
-        List<Item> items = new ArrayList<>();
-        Optional<Bucket> temp = getAll()
-                .stream()
-                .filter(b -> b.getUserId().equals(bucket.getUserId()))
-                .findFirst();
-        Bucket bucketForUpdate = temp.orElse(create(new Bucket(bucket.getUserId(),
-                bucket.getUserId(), items)));
-        bucketForUpdate.getItems().add(item);
-        bucketDao.update(bucketForUpdate);
+        bucket.getItems().add(item);
+        bucketDao.update(bucket);
     }
 
     @Override
@@ -80,22 +73,23 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public List<Bucket> getAll() throws DataProcessingException {
-        return bucketDao.getAll();
-    }
-
-    @Override
     public Bucket getByUser(User user) throws DataProcessingException {
-        return bucketDao.getByUser(user).orElse(bucketDao.create(new Bucket(user)));
+        Optional<Bucket> temp = bucketDao.getByUser(user);
+        if (temp.isPresent()) {
+            return temp.get();
+        } else {
+            return bucketDao.create(new Bucket(user));
+        }
     }
 
     @Override
     public Bucket getByUserId(Long userId) throws DataProcessingException {
         List<Item> items = new ArrayList<>();
-        Optional<Bucket> bucket = getAll()
-                .stream()
-                .filter(b -> b.getUserId().equals(userId))
-                .findFirst();
-        return bucket.orElse(create(new Bucket(userId, userId, items)));
+        Bucket temp = bucketDao.getBucketByUserId(userId).orElseThrow(NoSuchElementException::new);
+        if (temp.getBucketId() == null) {
+            return bucketDao.create(new Bucket(userId, items));
+        }
+        return temp;
     }
 }
+

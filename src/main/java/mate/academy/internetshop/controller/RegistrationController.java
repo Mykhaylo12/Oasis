@@ -1,6 +1,7 @@
 package mate.academy.internetshop.controller;
 
 import mate.academy.internetshop.exeption.DataProcessingException;
+import mate.academy.internetshop.exeption.LoginExistExeption;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
@@ -44,6 +45,10 @@ public class RegistrationController extends HttpServlet {
 
             Cookie cookie = new Cookie("MATE", user.getToken());
             resp.addCookie(cookie);
+        } catch (LoginExistExeption e) {
+            logger.error(e);
+            req.setAttribute("errorMsg", "Login already exist");
+            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         } catch (DataProcessingException e) {
             logger.error(e);
             req.setAttribute("msg", e.getMessage());
