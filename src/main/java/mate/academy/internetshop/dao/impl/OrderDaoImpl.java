@@ -9,6 +9,7 @@ import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.IdGenerator;
 import mate.academy.internetshop.model.Order;
+import mate.academy.internetshop.model.User;
 
 @Dao
 public class OrderDaoImpl implements OrderDao {
@@ -56,5 +57,10 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public List<Order> getAll() {
         return Storage.orders;
+    }
+
+    @Override
+    public List<Order> getUserOrders(User user) {
+        return null;
     }
 }

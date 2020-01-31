@@ -14,15 +14,19 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import static mate.academy.internetshop.model.Role.RoleName.ADMIN;
 import static mate.academy.internetshop.model.Role.RoleName.USER;
 
 public class AuthorizationFilter implements Filter {
+    private static Logger logger = LogManager.getLogger(AuthorizationFilter.class);
     @Inject
     private static UserService userService;
     Map<String, Role.RoleName> protectedUrls = new HashMap<>();
@@ -65,7 +69,14 @@ public class AuthorizationFilter implements Filter {
             procesUnAuthentificaded(req, resp);
             return;
         } else {
-            Optional<User> user = userService.getByToken(token);
+            Optional<User> user = null;
+            try {
+                user = userService.getByToken(token);
+            } catch (DataProcessingException e) {
+                logger.error(e);
+                req.setAttribute("msg", e.getMessage());
+                req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
+            }
             if (user.isPresent()) {
                 if (verifyRole(user.get(), roleName)) {
                     procesAuthentificaded(filterChain, req, resp);

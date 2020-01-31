@@ -4,7 +4,6 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-
     <servlet>
         <servlet-name>getAllUsers</servlet-name>
         <servlet-class>mate.academy.internetshop.controller.GetAllUsersController</servlet-class>
@@ -147,15 +146,6 @@
     <servlet-mapping>
         <servlet-name>loginController</servlet-name>
         <url-pattern>/login</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>injectDataController</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.InjectDataController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>injectDataController</servlet-name>
-        <url-pattern>/inject</url-pattern>
     </servlet-mapping>
 
     <servlet>

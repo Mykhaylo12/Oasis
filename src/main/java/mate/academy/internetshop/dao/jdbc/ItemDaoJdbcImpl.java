@@ -1,110 +1,108 @@
 package mate.academy.internetshop.dao.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.ItemDao;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Item;
-import org.apache.log4j.Logger;
 
 @Dao
 public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
-    private static Logger LOGGER = Logger.getLogger(ItemDaoJdbcImpl.class);
-    public static final String DB_NAME = "internet_shop";
-
     public ItemDaoJdbcImpl(Connection connection) {
         super(connection);
     }
 
     @Override
-    public Item create(Item item) {
-        String name = item.getName();
-        Double price = item.getPrice();
-        String query = String.format(Locale.ROOT, "INSERT INTO %s.items (name, price) "
-                        + "VALUES('%s', %.2f)",
-                DB_NAME, name, price);
-        try (Statement stmt = connection.createStatement()) {
-            int rs = stmt.executeUpdate(query);
-            LOGGER.info(rs + " row(s) was effected.");
+    public Item create(Item item) throws DataProcessingException {
+        String query = "INSERT INTO internet_shop.items (name, price) VALUES(?, ?)";
+        try (PreparedStatement preparedStatement
+                     = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setDouble(2, item.getPrice());
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            while (resultSet.next()) {
+                item.setItemId(resultSet.getLong(1));
+            }
+            return item;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to create item: " + e);
         }
-        return item;
     }
 
     @Override
-    public Optional<Item> get(Long id) {
-        String query = String.format("SELECT * FROM %s.items WHERE item_id=%d;", DB_NAME, id);
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
+    public Optional<Item> get(Long id) throws DataProcessingException {
+        String query = "SELECT * FROM internet_shop.items WHERE item_id=?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, id);
+            ResultSet rs = preparedStatement.executeQuery();
+            Item item = new Item();
             while (rs.next()) {
                 long itemId = rs.getLong("item_id");
                 String name = rs.getString("name");
                 double price = rs.getDouble("price");
-                Item item = new Item();
                 item.setName(name);
                 item.setPrice(price);
                 item.setItemId(itemId);
-                return Optional.of(item);
             }
+            return Optional.of(item);
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get item By Id : " + e);
         }
-        return Optional.empty();
     }
 
     @Override
-    public Item update(Item item) {
-        String query = String.format(Locale.ROOT, "update %s.items set name='%s' ,price=%.2f "
-                + "where item_id=%s;", DB_NAME, item.getName(), item.getPrice(), item.getItemId());
-        try (Statement stmt = connection.createStatement()) {
-            int res = stmt.executeUpdate(query);
-            LOGGER.info(res + " row(s) was effected");
+    public Item update(Item item) throws DataProcessingException {
+        String query = "update internet_shop.items set name= ? ,price= ? where item_id= ?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, item.getName());
+            preparedStatement.setDouble(2, item.getPrice());
+            preparedStatement.setLong(3, item.getItemId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to update item : " + e);
         }
         return item;
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        String query = String.format("delete from %s.items where item_id=%d;",
-                DB_NAME, id);
-        try (Statement stmt = connection.createStatement()) {
-            int res = stmt.executeUpdate(query);
-            LOGGER.info(res + " row(s) was effected");
+    public boolean deleteById(Long id) throws DataProcessingException {
+        String query = "delete from internet_shop.items where item_id=?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, id);
+            preparedStatement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete item By Id : " + e);
         }
     }
 
     @Override
-    public boolean delete(Item item) {
-        String query = String.format("delete from %s.items where item_id=%d;",
-                DB_NAME, item.getItemId());
-        try (Statement stmt = connection.createStatement()) {
-            int res = stmt.executeUpdate(query);
-            LOGGER.info(res + " row(s) was(ware) effected");
+    public boolean delete(Item item) throws DataProcessingException {
+        String query = "delete from internet_shop.items where item_id=?;";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setLong(1, item.getItemId());
+            preparedStatement.executeUpdate(query);
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to delete item: " + e);
         }
     }
 
     @Override
-    public List<Item> getAll() {
+    public List<Item> getAll() throws DataProcessingException {
         List<Item> allItems = new ArrayList<>();
-        String query = String.format("select * from %s.items", DB_NAME);
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
+        String query = "select * from internet_shop.items";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet rs = preparedStatement.executeQuery(query);
             while (rs.next()) {
                 long itemId = rs.getLong("item_id");
                 String name = rs.getString("name");
@@ -117,8 +115,7 @@ public class ItemDaoJdbcImpl extends AbstractDao<Item> implements ItemDao {
             }
             return allItems;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new DataProcessingException("Failed to get all item: " + e);
         }
     }
 }
-

@@ -1,6 +1,5 @@
 package mate.academy.internetshop.dao.impl;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -37,13 +36,13 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public Bucket update(Bucket busket) {
+    public Bucket update(Bucket bucket) {
         Bucket temp = Storage.buckets.stream()
-                .filter(x -> x.getBucketId().equals(busket.getBucketId()))
+                .filter(x -> x.getBucketId().equals(bucket.getBucketId()))
                 .findFirst().orElseThrow(() -> new NoSuchElementException("Can not update bucket."
                         + " Bucket doesn't exist"));
-        Storage.buckets.set(Storage.buckets.indexOf(temp), busket);
-        return busket;
+        Storage.buckets.set(Storage.buckets.indexOf(temp), bucket);
+        return bucket;
     }
 
     @Override
@@ -70,7 +69,7 @@ public class BucketDaoImpl implements BucketDao {
     }
 
     @Override
-    public List<Bucket> getAll() {
-        return Storage.buckets;
+    public Optional<Bucket> getBucketByUserId(Long userId) {
+        return Optional.empty();
     }
 }

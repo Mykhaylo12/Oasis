@@ -39,6 +39,8 @@ Items:
         <a href="/internet_shop_war_exploded/servlet/addItem">Add new item</a>
     </td>
 </table>
+<p> <a href="/internet_shop_war_exploded/servlet/bucketController">Show bucket</a></p>
 <a href="${pageContext.request.contextPath}/mainMenu">Main Menu</a>
+
 </body>
 </html>

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import mate.academy.internetshop.exeption.AuthenticationException;
+import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
@@ -31,14 +31,12 @@ public class LoginController extends HttpServlet {
         String password = req.getParameter("psw");
         try {
             User user = userService.login(login, password);
-
             HttpSession session = req.getSession(true);
             session.setAttribute("userId", user.getUserId());
-
             Cookie cookie = new Cookie("MATE", user.getToken());
             resp.addCookie(cookie);
             resp.sendRedirect(req.getContextPath() + "/mainMenu");
-        } catch (AuthenticationException | NoSuchElementException e) {
+        } catch (DataProcessingException | NoSuchElementException e) {
             req.setAttribute("errorMsg", "Incorrect login or password");
             req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         }
