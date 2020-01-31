@@ -14,7 +14,7 @@ import java.util.Set;
 
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exeption.DataProcessingException;
-import mate.academy.internetshop.exeption.LoginExistExeption;
+import mate.academy.internetshop.exeption.LoginExistException;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
@@ -48,7 +48,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         }
     }
 
-    public void checkUserLoginForRegistration(String login) throws LoginExistExeption {
+    public void checkUserLoginForRegistration(String login) throws LoginExistException {
         String query = "SELECT * FROM internet_shop.users;";
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -59,7 +59,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 }
             }
         } catch (SQLException e) {
-            throw new LoginExistExeption("Failed to update User Roles: " + e);
+            throw new LoginExistException("Failed to update User Roles: " + e);
         }
     }
 
@@ -77,7 +77,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 throw new SQLException();
             }
         } catch (SQLException e) {
-            throw new LoginExistExeption("Failed to update User Roles: " + e);
+            throw new LoginExistException("Failed to update User Roles: " + e);
         }
     }
 

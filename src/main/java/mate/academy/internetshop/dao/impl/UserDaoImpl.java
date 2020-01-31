@@ -7,7 +7,6 @@ import java.util.Optional;
 import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.dao.UserDao;
 import mate.academy.internetshop.exeption.DataProcessingException;
-import mate.academy.internetshop.exeption.LoginExistExeption;
 import mate.academy.internetshop.lib.Dao;
 import mate.academy.internetshop.model.IdGenerator;
 import mate.academy.internetshop.model.User;
