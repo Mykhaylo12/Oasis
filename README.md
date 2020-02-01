@@ -1,4 +1,4 @@
-Internet-shop
+#Internet-shop
 
 Table of Contents
 
@@ -48,7 +48,7 @@ Configure Tomcat:
 
 add artifact
 add sdk 11.0.3
-Add sdk 11.0.3 in project struñture.
+Add sdk 11.0.3 in project struÃ±ture.
 
 Use file /jv-internet-shop/src/main/resources/init_db.sql to create schema and all the tables required by this app in MySQL database.
 
