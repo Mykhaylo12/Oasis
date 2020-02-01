@@ -1,4 +1,4 @@
-# Internet-shop
+﻿# Internet-shop
 # Table of Contents
 * [Project purpose](#purpose)
 * [Project structure](#structure)
@@ -52,9 +52,9 @@ Configure Tomcat:
 * add artifact
 * add sdk 11.0.3
 
-Add sdk 11.0.3 in project stru�ture.
+Add sdk 11.0.3 in project structure.
 
-Use file /jv-internet-shop/src/main/resources/init.sql to create schema, all the tables and add few items for testing required by this app in MySQL database.
+Use file /jv-internet-shop/src/main/resources/init_db.sql to create schema, all the tables and add few items for testing required by this app in MySQL database.
 
 At /Oasis/src/main/java/mate/academy/internetshop/Factory class use username and password for your DB to create a Connection.
 
