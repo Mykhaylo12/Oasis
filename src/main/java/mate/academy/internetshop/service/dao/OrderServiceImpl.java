@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import mate.academy.internetshop.dao.OrderDao;
-import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
@@ -59,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAll() {
-        return Storage.orders;
+    public List<Order> getAll() throws DataProcessingException {
+        return orderDao.getAll();
     }
 }

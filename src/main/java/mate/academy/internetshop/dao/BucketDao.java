@@ -19,7 +19,5 @@ public interface BucketDao {
 
     boolean deleteById(Long bucketId) throws DataProcessingException;
 
-    boolean deleteBucketByUser(User user) throws DataProcessingException;
-
     Optional<Bucket> getBucketByUserId(Long userId) throws DataProcessingException;
 }

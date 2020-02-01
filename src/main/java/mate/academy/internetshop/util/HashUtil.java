@@ -28,9 +28,6 @@ public class HashUtil {
         } catch (NoSuchAlgorithmException e) {
             logger.error(e);
         }
-
         return hashedPassword.toString();
     }
-
-
 }

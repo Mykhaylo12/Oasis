@@ -61,18 +61,6 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public void clear(Bucket bucket) throws DataProcessingException {
-        Bucket temp = bucketDao.get(bucket.getBucketId()).orElseThrow(NoSuchElementException::new);
-        bucket.getItems().clear();
-        bucketDao.update(temp);
-    }
-
-    @Override
-    public List<Item> getAllItems(Bucket bucket) throws DataProcessingException {
-        return get(bucket.getBucketId()).getItems();
-    }
-
-    @Override
     public Bucket getByUser(User user) throws DataProcessingException {
         Optional<Bucket> temp = bucketDao.getByUser(user);
         if (temp.isPresent()) {

@@ -26,5 +26,5 @@ public interface UserDao {
 
     void checkUserLoginForRegistration(String login) throws LoginExistException;
 
-    void checkUserLoginForLogin(String login) throws LoginExistException, DataProcessingException;
+    void checkUserLoginForLogin(String login) throws  DataProcessingException;
 }

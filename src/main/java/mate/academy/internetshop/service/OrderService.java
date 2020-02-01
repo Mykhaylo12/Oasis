@@ -22,5 +22,5 @@ public interface OrderService {
 
     List<Order> getUserOrders(User user) throws DataProcessingException;
 
-    List<Order> getAll();
+    List<Order> getAll() throws DataProcessingException;
 }

@@ -5,7 +5,6 @@ public class Role {
     private RoleName roleName;
 
     public Role() {
-        this.id = IdGenerator.roleIdGenerator();
     }
 
     public Role(RoleName roleName) {

@@ -174,18 +174,6 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
     }
 
     @Override
-    public boolean deleteBucketByUser(User user) throws DataProcessingException {
-        String query = "DELETE FROM internet_shop.buckets WHERE user_id = ?;";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setLong(1, user.getUserId());
-            int rs = preparedStatement.executeUpdate();
-            return rs > 0;
-        } catch (SQLException e) {
-            throw new DataProcessingException("Failed to delete bucket: " + e);
-        }
-    }
-
-    @Override
     public Optional<Bucket> getBucketByUserId(Long userId) throws DataProcessingException {
         String query = "SELECT bucket_id FROM internet_shop.buckets WHERE  user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
