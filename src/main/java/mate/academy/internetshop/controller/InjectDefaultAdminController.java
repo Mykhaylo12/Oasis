@@ -23,14 +23,14 @@ public class InjectDefaultAdminController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         User admin = new User();
-        admin.setLogin("admin1");
+        admin.setLogin("admin");
         admin.setName("admin");
         admin.setEmail("email");
         admin.setPassword("1");
         admin.addRole(Role.of("ADMIN"));
         try {
             userService.create(admin);
-        } catch ( DataProcessingException e) {
+        } catch (DataProcessingException e) {
             logger.error(e);
             req.setAttribute("errorMsg", "Login already exist");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
