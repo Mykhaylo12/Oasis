@@ -1,10 +1,10 @@
-# Internet-shop
-# Table of Contents
+﻿# Internet-shop
+- Table of Contents
 * [Project purpose](#purpose)
 * [Project structure](#structure)
 * [For developer](#developer-start)
 * [Authors](#authors)
-# <a name="purpose"></a>Project purpose
+###<a name="purpose"></a>Project purpose
 
 This is a template for creating an Internet-shop.
 <hr>
@@ -33,7 +33,7 @@ Available functions for users with an ADMIN role only:
 
 <hr>
 
-# <a name="structure"></a>Project Structure
+### <a name="structure"></a>Project Structure
 * Java 11
 * Maven 4.0.0
 * javax.servlet-api 3.1.0
@@ -43,7 +43,7 @@ Available functions for users with an ADMIN role only:
 * mysql-connector-java 8.0.18
 <hr>
 
-# <a name="developer-start"></a>For developer
+### <a name="developer-start"></a>For developer
 Open the project in your IDE.
 
 Add it as maven project.
@@ -66,6 +66,6 @@ If you first time launch this project you can add user with admin role on login 
  
 <hr>
 
-# <a name="authors"></a>Authors
+### <a name="authors"></a>Authors
 [Mykhailo Kramar](https://github.com/Mykhaylo12?tab=repositories)
 
