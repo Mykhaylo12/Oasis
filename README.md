@@ -1,4 +1,4 @@
-﻿# Internet-shop
+# Internet-shop
 # Table of Contents
 * [Project purpose](#purpose)
 * [Project structure](#structure)
