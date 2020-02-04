@@ -40,25 +40,6 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
         }
     }
 
-    private Optional<Bucket> checkIfExistBucket(Bucket bucket) throws DataProcessingException {
-        String query = "SELECT * FROM internet_shop.buckets WHERE user_id=?;";
-        try (PreparedStatement preparedStatement
-                     = connection.prepareStatement(query)) {
-            if (preparedStatement.execute()) {
-                ResultSet rs = preparedStatement.executeQuery();
-                while (rs.next()) {
-                    bucket.setBucketId(rs.getLong("bucket_id"));
-                    bucket.setItems(getAllItemsByUserId(bucket.getUserId()));
-                }
-                return Optional.of(bucket);
-            } else {
-                return Optional.empty();
-            }
-        } catch (SQLException e) {
-            throw new DataProcessingException("Failed to  create bucket: " + e);
-        }
-    }
-
     private void addItemsToBucketInDB(Bucket bucket) throws DataProcessingException {
         String query = "INSERT INTO internet_shop.buckets_items (bucket_id, item_id)"
                 + " VALUES (?, ?);";
@@ -213,5 +194,24 @@ public class BucketDaoJdbcImpl extends AbstractDao<Bucket> implements BucketDao 
             throw new DataProcessingException("Failed to get All Items By UserId: " + e);
         }
         return items;
+    }
+
+    @Override
+    public List<Bucket> getAll() throws DataProcessingException {
+        List<Bucket> buckets = new ArrayList<>();
+        String query = "SELECT * FROM internet_shop.buckets";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                Bucket bucket = new Bucket();
+                bucket.setBucketId(rs.getLong("bucket_id"));
+                bucket.setUserId(rs.getLong("user_id"));
+                bucket.setItems(getAllItemsByUserId(bucket.getUserId()));
+                buckets.add(bucket);
+            }
+        } catch (SQLException e) {
+            throw new DataProcessingException("Failed to get All Items By UserId: " + e);
+        }
+        return buckets;
     }
 }

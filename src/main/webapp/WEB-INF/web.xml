@@ -39,7 +39,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>mainMenu</servlet-name>
-        <servlet-class>mate.academy.internetshop.controller.MainMenu</servlet-class>
+        <servlet-class>mate.academy.internetshop.controller.MainMenuController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>mainMenu</servlet-name>

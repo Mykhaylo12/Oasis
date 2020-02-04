@@ -31,13 +31,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public void deleteById(Long id) throws DataProcessingException {
-        itemDao.deleteById(id);
+    public boolean deleteById(Long id) throws DataProcessingException {
+        return itemDao.deleteById(id);
     }
 
     @Override
-    public void delete(Item item) throws DataProcessingException {
-        itemDao.delete(item);
+    public boolean delete(Item item) throws DataProcessingException {
+        return itemDao.delete(item);
     }
 
     @Override

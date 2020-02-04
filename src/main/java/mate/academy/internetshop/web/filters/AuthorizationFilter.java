@@ -19,17 +19,16 @@ import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import static mate.academy.internetshop.model.Role.RoleName.ADMIN;
 import static mate.academy.internetshop.model.Role.RoleName.USER;
 
 public class AuthorizationFilter implements Filter {
-    private static Logger logger = LogManager.getLogger(AuthorizationFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(AuthorizationFilter.class);
     @Inject
     private static UserService userService;
-    Map<String, Role.RoleName> protectedUrls = new HashMap<>();
+    private Map<String, Role.RoleName> protectedUrls = new HashMap<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -73,7 +72,7 @@ public class AuthorizationFilter implements Filter {
             try {
                 user = userService.getByToken(token);
             } catch (DataProcessingException e) {
-                logger.error(e);
+                LOGGER.error(e);
                 req.setAttribute("msg", e.getMessage());
                 req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
             }

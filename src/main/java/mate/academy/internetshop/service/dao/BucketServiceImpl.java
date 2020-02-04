@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import mate.academy.internetshop.dao.BucketDao;
-import mate.academy.internetshop.dao.ItemDao;
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
@@ -20,8 +19,6 @@ import mate.academy.internetshop.service.UserService;
 public class BucketServiceImpl implements BucketService {
     @Inject
     private static BucketDao bucketDao;
-    @Inject
-    private static ItemDao itemDao;
     @Inject
     private static UserService userService;
 
@@ -42,8 +39,18 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public void delete(Bucket bucket) throws DataProcessingException {
-        bucketDao.delete(bucket);
+    public boolean deleteById(Long entityId) throws DataProcessingException {
+        return bucketDao.deleteById(entityId);
+    }
+
+    @Override
+    public boolean delete(Bucket bucket) throws DataProcessingException {
+        return bucketDao.delete(bucket);
+    }
+
+    @Override
+    public List<Bucket> getAll() throws DataProcessingException {
+        return bucketDao.getAll();
     }
 
     @Override

@@ -16,17 +16,15 @@ import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class AuthenticationFilter implements Filter {
-    private static Logger logger = LogManager.getLogger(AuthenticationFilter.class);
+    private static final Logger LOGGER = Logger.getLogger(AuthenticationFilter.class);
     @Inject
     private static UserService userService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -44,18 +42,18 @@ public class AuthenticationFilter implements Filter {
                 try {
                     user = userService.getByToken(cookie.getValue());
                 } catch (DataProcessingException e) {
-                    logger.error(e);
+                    LOGGER.error(e);
                     req.setAttribute("msg", e.getMessage());
                     req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
                 }
                 if (user.isPresent()) {
-                    logger.info("User " + user.get().getLogin() + " was authenticatificated");
+                    LOGGER.info("User " + user.get().getLogin() + " was authenticatificated");
                     filterChain.doFilter(servletRequest, servletResponse);
                     return;
                 }
             }
         }
-        logger.info("User was not authenticatificated");
+        LOGGER.info("User was not authenticatificated");
         procesUnAuthentificaded(req, resp);
     }
 
@@ -66,6 +64,5 @@ public class AuthenticationFilter implements Filter {
 
     @Override
     public void destroy() {
-
     }
 }

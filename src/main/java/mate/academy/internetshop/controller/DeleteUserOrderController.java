@@ -10,11 +10,10 @@ import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class DeleteUserOrderController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(DeleteUserOrderController.class);
+    private static final Logger LOGGER = Logger.getLogger(DeleteUserOrderController.class);
     @Inject
     private static OrderService orderService;
 
@@ -28,7 +27,7 @@ public class DeleteUserOrderController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/servlet/orders?user_id="
                     + order.getUserId());
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

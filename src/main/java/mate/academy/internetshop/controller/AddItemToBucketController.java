@@ -6,8 +6,6 @@ import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.service.BucketService;
 import mate.academy.internetshop.service.ItemService;
-import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -17,13 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddItemToBucketController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(AddItemToBucketController.class);
+    private static final Logger LOGGER = Logger.getLogger(AddItemToBucketController.class);
     @Inject
     private static BucketService bucketService;
     @Inject
     private static ItemService itemService;
-    @Inject
-    private static UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -35,7 +31,7 @@ public class AddItemToBucketController extends HttpServlet {
             Item item = itemService.get(Long.parseLong(itemId));
             bucketService.addItem(bucket, item);
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

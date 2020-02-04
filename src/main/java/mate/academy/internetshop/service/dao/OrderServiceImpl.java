@@ -16,7 +16,7 @@ import mate.academy.internetshop.service.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
-    public static OrderDao orderDao;
+    private static OrderDao orderDao;
 
     @Override
     public Order create(Order order) throws DataProcessingException {
@@ -34,13 +34,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteById(Long orderId) throws DataProcessingException {
-        orderDao.deleteById(orderId);
+    public boolean deleteById(Long orderId) throws DataProcessingException {
+        return orderDao.deleteById(orderId);
     }
 
     @Override
-    public void delete(Order order) throws DataProcessingException {
-        orderDao.delete(order);
+    public boolean delete(Order order) throws DataProcessingException {
+        return orderDao.delete(order);
     }
 
     @Override

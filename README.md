@@ -4,6 +4,7 @@
 * [Project structure](#structure)
 * [For developer](#developer-start)
 * [Authors](#authors)
+
 ###<a name="purpose"></a>Project purpose
 
 This is a template for creating an Internet-shop.

@@ -11,11 +11,10 @@ import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.service.OrderService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class GetAllOrdersController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(GetAllOrdersController.class);
+    private static final Logger LOGGER = Logger.getLogger(GetAllOrdersController.class);
     @Inject
     private static OrderService orderService;
 
@@ -26,7 +25,7 @@ public class GetAllOrdersController extends HttpServlet {
         try {
             orders = orderService.getAll();
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

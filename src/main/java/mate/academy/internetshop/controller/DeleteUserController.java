@@ -3,7 +3,6 @@ package mate.academy.internetshop.controller;
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DeleteUserController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(DeleteUserController.class);
+    private static final Logger LOGGER = Logger.getLogger(DeleteUserController.class);
     @Inject
     public static UserService userService;
 
@@ -24,7 +23,7 @@ public class DeleteUserController extends HttpServlet {
             String userId = req.getParameter("user_id");
             userService.deleteById(Long.parseLong(userId));
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

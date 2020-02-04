@@ -101,11 +101,11 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         }
     }
 
-    private void deleteAllUserRoles(User user) throws DataProcessingException {
+    private boolean deleteAllUserRoles(User user) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.users_roles WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, user.getUserId());
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to delete All User Roles: " + e);
         }

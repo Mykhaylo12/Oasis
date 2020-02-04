@@ -14,10 +14,9 @@ import mate.academy.internetshop.service.UserService;
 import org.apache.log4j.Logger;
 
 public class InjectDefaultAdminController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
     @Inject
     private static UserService userService;
-
-    private Logger logger = Logger.getLogger(RegistrationController.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -31,7 +30,7 @@ public class InjectDefaultAdminController extends HttpServlet {
         try {
             userService.create(admin);
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("errorMsg", "Login already exist");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         }

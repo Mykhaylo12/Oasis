@@ -44,13 +44,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(Long userId) throws DataProcessingException {
-        userDao.deleteById(userId);
+    public boolean deleteById(Long userId) throws DataProcessingException {
+        return userDao.deleteById(userId);
     }
 
     @Override
-    public void delete(User user) throws DataProcessingException {
-        userDao.delete(user);
+    public boolean delete(User user) throws DataProcessingException {
+        return userDao.delete(user);
     }
 
     @Override
