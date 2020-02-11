@@ -6,6 +6,7 @@ import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
+import mate.academy.internetshop.util.HashUtil;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -19,6 +20,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) throws DataProcessingException {
+        byte[] salt = HashUtil.getSalt();
+        String hashPassword = HashUtil.hashPassword(user.getPassword(), salt);
+        user.setPassword(hashPassword);
+        user.setSalt(salt);
         userDao.checkUserLoginForRegistration(user.getLogin());
         user.setToken(getToken());
         return userDao.create(user);
@@ -39,13 +44,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteById(Long userId) throws DataProcessingException {
-        userDao.deleteById(userId);
+    public boolean deleteById(Long userId) throws DataProcessingException {
+        return userDao.deleteById(userId);
     }
 
     @Override
-    public void delete(User user) throws DataProcessingException {
-        userDao.delete(user);
+    public boolean delete(User user) throws DataProcessingException {
+        return userDao.delete(user);
     }
 
     @Override
@@ -57,7 +62,8 @@ public class UserServiceImpl implements UserService {
     public User login(String login, String password) throws DataProcessingException {
         userDao.checkUserLoginForLogin(login);
         User user = userDao.findByLogin(login).orElseThrow(NoSuchElementException::new);
-        if (!user.getPassword().equals(password)) {
+        String hashPasswordFromLoginController = HashUtil.hashPassword(password, user.getSalt());
+        if (!user.getPassword().equals(hashPasswordFromLoginController)) {
             throw new DataProcessingException("Wrong password or login");
         }
         return user;

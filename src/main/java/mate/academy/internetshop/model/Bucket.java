@@ -21,6 +21,7 @@ public class Bucket {
         this.bucketId = bucketId;
         this.items = items;
     }
+
     public Bucket(Long userId, List<Item> items) {
         this.userId = userId;
         this.items = items;

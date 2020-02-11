@@ -3,7 +3,6 @@ package mate.academy.internetshop.controller;
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.service.ItemService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -14,9 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 public class GetAlllItemsController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(GetAlllItemsController.class);
+    private static final Logger LOGGER = Logger.getLogger(GetAlllItemsController.class);
     @Inject
-    public static ItemService itemService;
+    private static ItemService itemService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -26,7 +25,7 @@ public class GetAlllItemsController extends HttpServlet {
             req.setAttribute("items", items);
             req.getRequestDispatcher("/WEB-INF/views/allItems.jsp").forward(req, resp);
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

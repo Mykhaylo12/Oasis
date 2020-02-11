@@ -7,20 +7,8 @@ import mate.academy.internetshop.model.Item;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
 
-public interface OrderService {
-    Order create(Order order) throws DataProcessingException;
-
-    Order get(Long orderId) throws DataProcessingException;
-
-    Order update(Order order) throws DataProcessingException;
-
-    void deleteById(Long orderId) throws DataProcessingException;
-
-    void delete(Order order) throws DataProcessingException;
-
+public interface OrderService extends GenericService<Order, Long> {
     Order completeOrder(List<Item> items, User user) throws DataProcessingException;
 
     List<Order> getUserOrders(User user) throws DataProcessingException;
-
-    List<Order> getAll();
 }

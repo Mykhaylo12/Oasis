@@ -1,24 +1,11 @@
 package mate.academy.internetshop.dao;
 
 import java.util.List;
-import java.util.Optional;
 
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.model.Order;
 import mate.academy.internetshop.model.User;
 
-public interface OrderDao {
-    Order create(Order order) throws DataProcessingException;
-
-    Optional<Order> get(Long orderId) throws DataProcessingException;
-
-    Order update(Order order) throws DataProcessingException;
-
-    boolean deleteById(Long orderId) throws DataProcessingException;
-
-    boolean delete(Order order) throws DataProcessingException;
-
-    List<Order> getAll() throws DataProcessingException;
-
+public interface OrderDao extends GenericDao<Order, Long> {
     List<Order> getUserOrders(User user) throws DataProcessingException;
 }

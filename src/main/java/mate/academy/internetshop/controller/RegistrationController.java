@@ -6,7 +6,6 @@ import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -18,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class RegistrationController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(AddItemToBucketController.class);
+    private static final Logger LOGGER = Logger.getLogger(AddItemToBucketController.class);
     @Inject
     public static UserService userService;
 
@@ -46,11 +45,11 @@ public class RegistrationController extends HttpServlet {
             Cookie cookie = new Cookie("MATE", user.getToken());
             resp.addCookie(cookie);
         } catch (LoginExistException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("errorMsg", "Login already exist");
             req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }

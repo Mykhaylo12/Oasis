@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import mate.academy.internetshop.dao.OrderDao;
-import mate.academy.internetshop.dao.Storage;
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
 import mate.academy.internetshop.lib.Service;
@@ -17,7 +16,7 @@ import mate.academy.internetshop.service.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService {
     @Inject
-    public static OrderDao orderDao;
+    private static OrderDao orderDao;
 
     @Override
     public Order create(Order order) throws DataProcessingException {
@@ -35,13 +34,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteById(Long orderId) throws DataProcessingException {
-        orderDao.deleteById(orderId);
+    public boolean deleteById(Long orderId) throws DataProcessingException {
+        return orderDao.deleteById(orderId);
     }
 
     @Override
-    public void delete(Order order) throws DataProcessingException {
-        orderDao.delete(order);
+    public boolean delete(Order order) throws DataProcessingException {
+        return orderDao.delete(order);
     }
 
     @Override
@@ -59,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> getAll() {
-        return Storage.orders;
+    public List<Order> getAll() throws DataProcessingException {
+        return orderDao.getAll();
     }
 }

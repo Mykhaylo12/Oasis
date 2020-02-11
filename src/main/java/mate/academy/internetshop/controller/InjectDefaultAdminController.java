@@ -8,30 +8,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import mate.academy.internetshop.exeption.DataProcessingException;
 import mate.academy.internetshop.lib.Inject;
+import mate.academy.internetshop.model.Role;
 import mate.academy.internetshop.model.User;
-import mate.academy.internetshop.service.OrderService;
 import mate.academy.internetshop.service.UserService;
 import org.apache.log4j.Logger;
 
-public class GetUserOrdersController extends HttpServlet {
-    private static final Logger LOGGER = Logger.getLogger(GetUserOrdersController.class);
-    @Inject
-    private static OrderService orderService;
+public class InjectDefaultAdminController extends HttpServlet {
+    private static final Logger LOGGER = Logger.getLogger(RegistrationController.class);
     @Inject
     private static UserService userService;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        User admin = new User();
+        admin.setLogin("admin");
+        admin.setName("admin");
+        admin.setEmail("email");
+        admin.setPassword("1");
+        admin.addRole(Role.of("ADMIN"));
         try {
-            String userId = String.valueOf(req.getSession(true).getAttribute("userId"));
-            User user = userService.get(Long.parseLong(userId));
-            req.setAttribute("orders", orderService.getUserOrders(user));
+            userService.create(admin);
         } catch (DataProcessingException e) {
             LOGGER.error(e);
-            req.setAttribute("msg", e.getMessage());
-            req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
+            req.setAttribute("errorMsg", "Login already exist");
+            req.getRequestDispatcher("/WEB-INF/views/registration.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/WEB-INF/views/orders.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
     }
 }
+

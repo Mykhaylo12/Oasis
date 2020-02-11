@@ -18,7 +18,8 @@
             <input type="submit" class="fadeIn fourth" value="Log In">
         </form>
     <div class="fadeIn second" >
-        <p>Don't have an account?<a href="/internet_shop_war_exploded/registration">Sign up</a></p>
+        <p>Don't have an account?<a href="/internet_shop_war_exploded/registration"> Sign up</a></p>
+        <p>Add user with login:"admin", password:"1".<a href="/internet_shop_war_exploded/inject"> Add</a></p>
     </div>
 </div>
 </div>

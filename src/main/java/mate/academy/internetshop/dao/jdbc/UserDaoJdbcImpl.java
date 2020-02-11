@@ -27,15 +27,16 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User create(User user) throws DataProcessingException {
-        String query = "INSERT INTO internet_shop.users(login, password, email, name,token)"
-                + " VALUES(?, ?, ?, ?, ?);";
+        String query = "INSERT INTO internet_shop.users(login, password, salt, email, name,token)"
+                + " VALUES(?, ?, ?, ?, ?, ?);";
         try (PreparedStatement preparedStatement
                      = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getName());
-            preparedStatement.setString(5, user.getToken());
+            preparedStatement.setBytes(3, user.getSalt());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getName());
+            preparedStatement.setString(6, user.getToken());
             preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             while (rs.next()) {
@@ -100,11 +101,11 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
         }
     }
 
-    private void deleteAllUserRoles(User user) throws DataProcessingException {
+    private boolean deleteAllUserRoles(User user) throws DataProcessingException {
         String query = "DELETE FROM internet_shop.users_roles WHERE user_id=?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setLong(1, user.getUserId());
-            preparedStatement.executeUpdate();
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new DataProcessingException("Failed to delete All User Roles: " + e);
         }
@@ -124,6 +125,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
                 user.setToken(rs.getString("token"));
+                user.setSalt(rs.getBytes("salt"));
             }
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
@@ -156,15 +158,16 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
 
     @Override
     public User update(User user) throws DataProcessingException {
-        String query = "UPDATE internet_shop.users SET login = ?, password = ?, email= ?,"
+        String query = "UPDATE internet_shop.users SET login = ?, password = ?,salt = ?, email= ?,"
                 + " name = ?, token = ? WHERE user_id = ?;";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getName());
-            preparedStatement.setString(5, user.getToken());
-            preparedStatement.setLong(6, user.getUserId());
+            preparedStatement.setBytes(3, user.getSalt());
+            preparedStatement.setString(4, user.getEmail());
+            preparedStatement.setString(5, user.getName());
+            preparedStatement.setString(6, user.getToken());
+            preparedStatement.setLong(7, user.getUserId());
             preparedStatement.executeUpdate();
             return get(user.getUserId()).orElseThrow(NoSuchElementException::new);
         } catch (SQLException e) {
@@ -208,6 +211,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 user.setName(rs.getString("name"));
                 user.setToken(rs.getString("token"));
                 user.setLogin(rs.getString("login"));
+                user.setSalt(rs.getBytes("salt"));
             }
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
@@ -225,10 +229,12 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 user.setUserId(rs.getLong("user_id"));
-                user.setLogin(rs.getString("login"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
+                user.setToken(rs.getString("token"));
+                user.setLogin(rs.getString("login"));
+                user.setSalt(rs.getBytes("salt"));
             }
             user.setRoles(getAllUserRoles(user.getUserId()));
             return Optional.of(user);
@@ -251,6 +257,7 @@ public class UserDaoJdbcImpl extends AbstractDao<User> implements UserDao {
                 user.setEmail(rs.getString("email"));
                 user.setName(rs.getString("name"));
                 user.setToken(rs.getString("token"));
+                user.setSalt(rs.getBytes("salt"));
                 user.setRoles(getAllUserRoles(user.getUserId()));
                 users.add(user);
             }

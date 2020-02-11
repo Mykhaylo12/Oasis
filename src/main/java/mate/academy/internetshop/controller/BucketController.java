@@ -6,7 +6,6 @@ import mate.academy.internetshop.model.Bucket;
 import mate.academy.internetshop.model.User;
 import mate.academy.internetshop.service.BucketService;
 import mate.academy.internetshop.service.UserService;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class BucketController extends HttpServlet {
-    private static Logger logger = LogManager.getLogger(BucketController.class);
+    private static final Logger LOGGER = Logger.getLogger(BucketController.class);
     @Inject
     private static BucketService bucketService;
     @Inject
@@ -31,7 +30,7 @@ public class BucketController extends HttpServlet {
             Bucket bucket = bucketService.getByUser(user);
             req.setAttribute("bucket", bucket);
         } catch (DataProcessingException e) {
-            logger.error(e);
+            LOGGER.error(e);
             req.setAttribute("msg", e.getMessage());
             req.getRequestDispatcher("/WEB-INF/views/dbError.jsp").forward(req, resp);
         }
